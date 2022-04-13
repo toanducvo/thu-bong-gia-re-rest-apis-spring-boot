@@ -1,5 +1,7 @@
 package vn.edu.iuh.fit.se.thubonggiareapis.entity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -35,19 +37,19 @@ public class Product {
 	@Column
 	private String description;
 	
-	@Column(columnDefinition = "Không có")
+	@Column
 	private String origin;
 	
-	@Column(columnDefinition = "OEM")
+	@Column
 	private String brand;
 	
 	@Column
 	private int rate;
 	
-	@Column(columnDefinition = "Chung")
+	@Column
 	private String category;
 	
-	@Column(columnDefinition = "Chung")
+	@Column
 	private String material;
 	
 	@Column
@@ -67,8 +69,6 @@ public class Product {
 	
 	@OneToMany(mappedBy = "product")
 	private Set<OrderDetail> orderDetails;
-	
-	
-	
+
 	
 }

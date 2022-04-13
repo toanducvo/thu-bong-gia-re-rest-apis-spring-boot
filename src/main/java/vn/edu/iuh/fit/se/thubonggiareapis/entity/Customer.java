@@ -1,5 +1,7 @@
 package vn.edu.iuh.fit.se.thubonggiareapis.entity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -33,8 +35,7 @@ public class Customer {
 	@Column
 	private String phoneNumber;
 	
-	
 	@OneToMany(mappedBy = "customer")
-	private Set<Order> orders;
+	private List<Order> orders = new ArrayList<Order>();
 	
 }

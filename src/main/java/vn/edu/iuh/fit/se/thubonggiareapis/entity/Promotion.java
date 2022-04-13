@@ -1,6 +1,8 @@
 package vn.edu.iuh.fit.se.thubonggiareapis.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -27,9 +29,8 @@ public class Promotion {
 
 	private String promotionCode; //note
 	
-	@Column(nullable = false, updatable = false)
 	@ManyToOne
-	@JoinColumn(name = "userId")
+	@JoinColumn(name = "user_id")
 	private User createdBy;
 	
 	@Column(nullable = false, updatable = false)
@@ -41,8 +42,6 @@ public class Promotion {
 	@Column(nullable = false, updatable = false)
 	private int limit;
 	
-	@OneToMany(mappedBy = "promotion")
-	private Set<Order> orders;
 	
 
 }
