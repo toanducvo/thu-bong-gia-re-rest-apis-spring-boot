@@ -1,5 +1,7 @@
 package vn.edu.iuh.fit.se.thubonggiareapis.entity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -35,14 +37,11 @@ public class User {
 	
 	@Column
 	private String password;
-
 	
 	@OneToMany(mappedBy = "createdBy")
-	private Set<Promotion> promotions;
+	private List<Promotion> promotions = new ArrayList<Promotion>();
 	
 	@OneToMany(mappedBy = "approvedBy")
-	private Set<Order> orders;
-	
-	
+	private List<Order> orders = new ArrayList<Order>();
 	
 }

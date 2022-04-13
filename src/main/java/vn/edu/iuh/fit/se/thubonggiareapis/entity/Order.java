@@ -1,6 +1,8 @@
 package vn.edu.iuh.fit.se.thubonggiareapis.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -24,14 +26,6 @@ public class Order {
 	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
 	@Column(name = "id", unique = true, updatable = false)
 	private UUID id;
-	
-	@ManyToOne
-	@JoinColumn(name = "customerId")
-	private Customer customer;
-	
-	@ManyToOne
-	@JoinColumn(name = "userId")
-	private User approvedBy;
 	
 	@Column(nullable = false, updatable = false)
 	private LocalDateTime orderDate;
@@ -60,10 +54,20 @@ public class Order {
 	@Column(nullable = false, updatable = false)
 	private String shippingNote;
 	
+	@ManyToOne
+	@JoinColumn(name = "customer_id")
+	private Customer customer;
+	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User approvedBy;
+	
 	@OneToMany(mappedBy = "order")
-	private Set<OrderDetail> orderDetails;
+	private List<OrderDetail> orderDetails = new ArrayList<OrderDetail>();
 	
 	@OneToMany(mappedBy = "order")
 	private Set<OrderStatus> orderStatus;
+	
+	
 	
 }

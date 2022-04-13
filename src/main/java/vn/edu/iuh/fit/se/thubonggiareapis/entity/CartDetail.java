@@ -1,30 +1,33 @@
 package vn.edu.iuh.fit.se.thubonggiareapis.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "cartDetail")
+@IdClass(CartDetailPK.class)
+@Table(name = "cartDetails")
 public class CartDetail {
-
+	
+	@Id
+	@ManyToOne
+	@JoinColumn(name = "productId")
+	private Product product;
+	
+	@Id
 	@ManyToOne
 	@JoinColumn(name = "cartId")
 	private Cart cart;
 	
-	@ManyToOne
-	@JoinColumn(name = "productId")
-	private Product product;
-
-	@Column(nullable = false, updatable = false)
 	private int quantity;
-
-	@Column(nullable = false, updatable = false)
 	private double cost;
-	
-	@Column(nullable = false, updatable = false)
 	private double totalLine;
+	
+	
+	
 }
