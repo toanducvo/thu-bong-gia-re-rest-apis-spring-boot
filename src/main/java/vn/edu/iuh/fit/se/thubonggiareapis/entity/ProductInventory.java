@@ -1,21 +1,32 @@
 package vn.edu.iuh.fit.se.thubonggiareapis.entity;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "productInventory")
-public class ProductInventory {
+public class ProductInventory implements Serializable{
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	@GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator")
+	@Column(name = "id", unique = true, updatable = false)
+	private UUID id;
 	
 	@Column(nullable = false, updatable = false)
 	private int quantity;
@@ -24,5 +35,72 @@ public class ProductInventory {
 	private double cost;
 	
 	@Column(nullable = false, updatable = false)
-	private LocalDateTime createdAt; 
+	private LocalDateTime createdAt;
+	
+	@OneToOne
+	@MapsId
+	@JoinColumn(name = "product_id")
+	private Product product;
+
+	public ProductInventory() {
+		super();
+	}
+
+	public ProductInventory(UUID id) {
+		super();
+		this.id = id;
+	}
+
+	public ProductInventory(UUID id, int quantity, double cost, LocalDateTime createdAt, Product product) {
+		super();
+		this.id = id;
+		this.quantity = quantity;
+		this.cost = cost;
+		this.createdAt = createdAt;
+		this.product = product;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public double getCost() {
+		return cost;
+	}
+
+	public void setCost(double cost) {
+		this.cost = cost;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	public UUID getId() {
+		return id;
+	}
+
+	@Override
+	public String toString() {
+		return "ProductInventory [id=" + id + ", quantity=" + quantity + ", cost=" + cost + ", createdAt=" + createdAt
+				+ ", product=" + product + "]";
+	}
+	
+	
 }

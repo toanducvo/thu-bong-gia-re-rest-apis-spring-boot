@@ -42,6 +42,95 @@ public class Promotion {
 	@Column(nullable = false, updatable = false)
 	private int limit;
 	
+	@OneToMany(mappedBy = "promotion")
+	private List<Order> orders = new ArrayList<Order>();
+
+	public Promotion() {
+		super();
+	}
+
+	public Promotion(UUID id) {
+		super();
+		this.id = id;
+	}
+
+	public Promotion(UUID id, String promotionCode, User createdBy, LocalDateTime expiredDate, double deducted,
+			int limit) {
+		super();
+		this.id = id;
+		this.promotionCode = promotionCode;
+		this.createdBy = createdBy;
+		this.expiredDate = expiredDate;
+		this.deducted = deducted;
+		this.limit = limit;
+	}
+
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
+	}
+
+	public String getPromotionCode() {
+		return promotionCode;
+	}
+
+	public void setPromotionCode(String promotionCode) {
+		this.promotionCode = promotionCode;
+	}
+
+	public User getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(User createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public LocalDateTime getExpiredDate() {
+		return expiredDate;
+	}
+
+	public void setExpiredDate(LocalDateTime expiredDate) {
+		this.expiredDate = expiredDate;
+	}
+
+	public double getDeducted() {
+		return deducted;
+	}
+
+	public void setDeducted(double deducted) {
+		this.deducted = deducted;
+	}
+
+	public int getLimit() {
+		return limit;
+	}
+
+	public void setLimit(int limit) {
+		this.limit = limit;
+	}
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+
+	@Override
+	public String toString() {
+		return "Promotion [id=" + id + ", promotionCode=" + promotionCode + ", createdBy=" + createdBy
+				+ ", expiredDate=" + expiredDate + ", deducted=" + deducted + ", limit=" + limit + ", orders=" + orders
+				+ "]";
+	}
+	
+	
+	
+	
 	
 
 }

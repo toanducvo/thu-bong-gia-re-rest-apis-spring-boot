@@ -1,17 +1,18 @@
 package vn.edu.iuh.fit.se.thubonggiareapis.entity;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class OrderStatusPK implements Serializable{
 	private Order order;
-	private String status;
+	private LocalDateTime timestamp;
 	public OrderStatusPK() {
 		super();
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(order, status);
+		return Objects.hash(order, timestamp);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -22,8 +23,10 @@ public class OrderStatusPK implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		OrderStatusPK other = (OrderStatusPK) obj;
-		return Objects.equals(order, other.order) && Objects.equals(status, other.status);
+		return Objects.equals(order, other.order) && Objects.equals(timestamp, other.timestamp);
 	}
+	
+	
 	
 	
 }
