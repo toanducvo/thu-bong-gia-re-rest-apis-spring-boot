@@ -13,8 +13,8 @@ import vn.edu.iuh.fit.se.thubonggiareapis.service.impl.UserServiceImpl;
 @RestController
 public class UserController {
 	
-	@Autowired
-	private IUserService userService;
+//	@Autowired
+	private IUserService userService =new UserServiceImpl();
 	
 	@PostMapping(value = "/users", consumes = MediaType.ALL_VALUE)
 	public UserDTO addUser(@RequestBody UserDTO model) {
