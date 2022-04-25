@@ -1,8 +1,11 @@
 package vn.edu.iuh.fit.se.thubonggiareapis.converter;
 
+import org.springframework.stereotype.Component;
+
 import vn.edu.iuh.fit.se.thubonggiareapis.dto.UserDTO;
 import vn.edu.iuh.fit.se.thubonggiareapis.entity.User;
 
+@Component
 public class UserConverter {
 	public User toUserEntity(UserDTO userDTO) {
 		User user = new User();
@@ -16,10 +19,10 @@ public class UserConverter {
 	
 	public UserDTO toUserDTO(User user) {
 		UserDTO userDTO = new UserDTO();
-		user.setName(userDTO.getName());
-		user.setEmail(userDTO.getEmail());
-		user.setPhoneNumber(userDTO.getPhoneNumber());
-		user.setPassword(userDTO.getPassword());
+		userDTO.setName(user.getName());
+		userDTO.setEmail(user.getEmail());
+		userDTO.setPhoneNumber(user.getPhoneNumber());
+		userDTO.setPassword(user.getPassword());
 		
 		return userDTO;
 	}
