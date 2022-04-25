@@ -22,9 +22,9 @@ public class User {
 	@GeneratedValue(generator = "UUID")
     @GenericGenerator(
             name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator")
-	@Column(name = "id", unique = true, updatable = false)
-	private UUID id;
+            strategy = "uuid")
+	@Column(name = "id", unique = true, updatable = false, columnDefinition = "CHAR(36)")
+	private String id;
 	
 	@Column(nullable = false)
 	private String name;
@@ -48,13 +48,22 @@ public class User {
 		super();
 	}
 
-	public User(UUID id) {
+	public User(String id) {
 		super();
 		this.id = id;
 	}
 
 	public User(String name, String email, String phoneNumber, String password) {
 		super();
+		this.name = name;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.password = password;
+	}
+
+	public User(String id, String name, String email, String phoneNumber, String password) {
+		super();
+		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
@@ -109,7 +118,7 @@ public class User {
 		this.orders = orders;
 	}
 
-	public UUID getId() {
+	public String getId() {
 		return id;
 	}
 
@@ -118,6 +127,7 @@ public class User {
 		return "User [id=" + id + ", name=" + name + ", email=" + email + ", phoneNumber=" + phoneNumber + ", password="
 				+ password + "]";
 	}
+
 	
 	
 	
