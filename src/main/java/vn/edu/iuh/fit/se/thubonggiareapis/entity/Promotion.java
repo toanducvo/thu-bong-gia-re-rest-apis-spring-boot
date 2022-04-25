@@ -23,9 +23,11 @@ public class Promotion {
 
 	@Id
 	@GeneratedValue(generator = "UUID")
-	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-	@Column(name = "id", unique = true, updatable = false)
-	private UUID id;
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "uuid")
+	@Column(name = "id", unique = true, updatable = false, columnDefinition = "CHAR(36)")
+	private String id;
 
 	private String promotionCode; //note
 	
@@ -49,12 +51,21 @@ public class Promotion {
 		super();
 	}
 
-	public Promotion(UUID id) {
+	public Promotion(String id) {
 		super();
 		this.id = id;
 	}
 
-	public Promotion(UUID id, String promotionCode, User createdBy, LocalDateTime expiredDate, double deducted,
+	public Promotion(String promotionCode, User createdBy, LocalDateTime expiredDate, double deducted, int limit) {
+		super();
+		this.promotionCode = promotionCode;
+		this.createdBy = createdBy;
+		this.expiredDate = expiredDate;
+		this.deducted = deducted;
+		this.limit = limit;
+	}
+
+	public Promotion(String id, String promotionCode, User createdBy, LocalDateTime expiredDate, double deducted,
 			int limit) {
 		super();
 		this.id = id;
@@ -63,14 +74,6 @@ public class Promotion {
 		this.expiredDate = expiredDate;
 		this.deducted = deducted;
 		this.limit = limit;
-	}
-
-	public UUID getId() {
-		return id;
-	}
-
-	public void setId(UUID id) {
-		this.id = id;
 	}
 
 	public String getPromotionCode() {
@@ -121,15 +124,18 @@ public class Promotion {
 		this.orders = orders;
 	}
 
+	public String getId() {
+		return id;
+	}
+
 	@Override
 	public String toString() {
 		return "Promotion [id=" + id + ", promotionCode=" + promotionCode + ", createdBy=" + createdBy
-				+ ", expiredDate=" + expiredDate + ", deducted=" + deducted + ", limit=" + limit + ", orders=" + orders
-				+ "]";
+				+ ", expiredDate=" + expiredDate + ", deducted=" + deducted + ", limit=" + limit + "]";
 	}
+
 	
-	
-	
+
 	
 	
 
