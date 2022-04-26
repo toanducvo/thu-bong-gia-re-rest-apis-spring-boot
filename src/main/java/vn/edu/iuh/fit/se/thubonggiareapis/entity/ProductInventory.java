@@ -21,12 +21,8 @@ import org.hibernate.annotations.GenericGenerator;
 public class ProductInventory implements Serializable{
 	
 	@Id
-	@GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator")
-	@Column(name = "id", unique = true, updatable = false)
-	private UUID id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
 	
 	@Column(nullable = false, updatable = false)
 	private int quantity;
@@ -46,18 +42,24 @@ public class ProductInventory implements Serializable{
 		super();
 	}
 
-	public ProductInventory(UUID id) {
+	public ProductInventory(int quantity, double cost, LocalDateTime createdAt) {
 		super();
-		this.id = id;
+		this.quantity = quantity;
+		this.cost = cost;
+		this.createdAt = createdAt;
 	}
 
-	public ProductInventory(UUID id, int quantity, double cost, LocalDateTime createdAt, Product product) {
+	public ProductInventory(long id, int quantity, double cost, LocalDateTime createdAt) {
 		super();
 		this.id = id;
 		this.quantity = quantity;
 		this.cost = cost;
 		this.createdAt = createdAt;
-		this.product = product;
+	}
+
+	public ProductInventory(long id) {
+		super();
+		this.id = id;
 	}
 
 	public int getQuantity() {
@@ -92,15 +94,16 @@ public class ProductInventory implements Serializable{
 		this.product = product;
 	}
 
-	public UUID getId() {
+	public long getId() {
 		return id;
 	}
 
 	@Override
 	public String toString() {
 		return "ProductInventory [id=" + id + ", quantity=" + quantity + ", cost=" + cost + ", createdAt=" + createdAt
-				+ ", product=" + product + "]";
+				+ "]";
 	}
+
 	
 	
 }

@@ -1,5 +1,8 @@
 package vn.edu.iuh.fit.se.thubonggiareapis.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,5 +27,18 @@ public class UserServiceImpl implements IUserService{
 		user = userRepository.save(user);
 		return userConverter.toUserDTO(user);
 	}
+
+	@Override
+	public List<UserDTO> getUsers() {
+		List<UserDTO> userDTOs = new ArrayList<UserDTO>();
+		List<User> users = userRepository.findAll();
+		for(User user: users) {
+			UserDTO userDTO = userConverter.toUserDTO(user);
+			userDTOs.add(userDTO);
+		}
+		return userDTOs;
+	}
+	 
+	
 
 }

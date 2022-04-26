@@ -25,12 +25,8 @@ import org.hibernate.annotations.GenericGenerator;
 public class Product implements Serializable{
 	
 	@Id
-	@GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator")
-	@Column(name = "id", unique = true, updatable = false)
-	private UUID id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
 	
 	@Column(nullable = false)
 	private String name;
@@ -68,6 +64,9 @@ public class Product implements Serializable{
 	@Column
 	private final String measuredUnit = "cm";
 	
+	@Column
+	private String image;
+	
 	@OneToMany(mappedBy = "product")
 	private List<CartDetail> cartDetails = new ArrayList<CartDetail>();
 	
@@ -82,15 +81,14 @@ public class Product implements Serializable{
 		super();
 	}
 
-	public Product(UUID id) {
+	public Product(long id) {
 		super();
 		this.id = id;
 	}
 
-	public Product(UUID id, String name, double cost, String description, String origin, String brand, int rate,
-			String category, String material, double weight, double height, double width) {
+	public Product(String name, double cost, String description, String origin, String brand, int rate, String category,
+			String material, double weight, double height, double width, String image) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.cost = cost;
 		this.description = description;
@@ -102,13 +100,13 @@ public class Product implements Serializable{
 		this.weight = weight;
 		this.height = height;
 		this.width = width;
+		this.image = image;
 	}
 
-	public Product(UUID id, String name, double cost, String description, String origin, String brand, int rate,
-			String category, String material, double weight, double height, double width,
+	public Product(String name, double cost, String description, String origin, String brand, int rate, String category,
+			String material, double weight, double height, double width, String image,
 			ProductInventory productInventory) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.cost = cost;
 		this.description = description;
@@ -120,15 +118,8 @@ public class Product implements Serializable{
 		this.weight = weight;
 		this.height = height;
 		this.width = width;
+		this.image = image;
 		this.productInventory = productInventory;
-	}
-
-	public UUID getId() {
-		return id;
-	}
-
-	public void setId(UUID id) {
-		this.id = id;
 	}
 
 	public String getName() {
@@ -219,6 +210,14 @@ public class Product implements Serializable{
 		this.width = width;
 	}
 
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	public List<CartDetail> getCartDetails() {
 		return cartDetails;
 	}
@@ -243,6 +242,10 @@ public class Product implements Serializable{
 		this.productInventory = productInventory;
 	}
 
+	public long getId() {
+		return id;
+	}
+
 	public String getMeasuredUnit() {
 		return measuredUnit;
 	}
@@ -252,9 +255,10 @@ public class Product implements Serializable{
 		return "Product [id=" + id + ", name=" + name + ", cost=" + cost + ", description=" + description + ", origin="
 				+ origin + ", brand=" + brand + ", rate=" + rate + ", category=" + category + ", material=" + material
 				+ ", weight=" + weight + ", height=" + height + ", width=" + width + ", measuredUnit=" + measuredUnit
-				+ ", cartDetails=" + cartDetails + ", orderDetails=" + orderDetails + ", productInventory="
-				+ productInventory + "]";
+				+ ", image=" + image + "]";
 	}
+
+	
 	
 	
 	

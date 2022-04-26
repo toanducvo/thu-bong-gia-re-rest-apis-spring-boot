@@ -8,6 +8,7 @@ import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -19,12 +20,8 @@ import org.hibernate.annotations.GenericGenerator;
 public class Customer {
 
 	@Id
-	@GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator")
-	@Column(name = "id", unique = true, updatable = false)
-	private UUID id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
 	
 	@Column(nullable = false)
 	private String name;
@@ -42,12 +39,19 @@ public class Customer {
 		super();
 	}
 
-	public Customer(UUID id) {
+	public Customer(long id) {
 		super();
 		this.id = id;
 	}
 
-	public Customer(UUID id, String name, String email, String phoneNumber) {
+	public Customer(String name, String email, String phoneNumber) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+	}
+
+	public Customer(long id, String name, String email, String phoneNumber) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -55,11 +59,11 @@ public class Customer {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public UUID getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -99,6 +103,7 @@ public class Customer {
 	public String toString() {
 		return "Customer [id=" + id + ", name=" + name + ", email=" + email + ", phoneNumber=" + phoneNumber + "]";
 	}
+
 	
 	
 	
