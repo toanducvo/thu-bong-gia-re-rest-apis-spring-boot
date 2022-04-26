@@ -9,6 +9,7 @@ import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -22,12 +23,8 @@ import org.hibernate.annotations.GenericGenerator;
 public class Promotion {
 
 	@Id
-	@GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "uuid")
-	@Column(name = "id", unique = true, updatable = false, columnDefinition = "CHAR(36)")
-	private String id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
 
 	private String promotionCode; //note
 	
@@ -51,7 +48,7 @@ public class Promotion {
 		super();
 	}
 
-	public Promotion(String id) {
+	public Promotion(long id) {
 		super();
 		this.id = id;
 	}
@@ -65,7 +62,7 @@ public class Promotion {
 		this.limit = limit;
 	}
 
-	public Promotion(String id, String promotionCode, User createdBy, LocalDateTime expiredDate, double deducted,
+	public Promotion(long id, String promotionCode, User createdBy, LocalDateTime expiredDate, double deducted,
 			int limit) {
 		super();
 		this.id = id;
@@ -124,7 +121,7 @@ public class Promotion {
 		this.orders = orders;
 	}
 
-	public String getId() {
+	public long getId() {
 		return id;
 	}
 

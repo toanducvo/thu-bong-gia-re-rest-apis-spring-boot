@@ -9,6 +9,7 @@ import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -22,12 +23,8 @@ import org.hibernate.annotations.GenericGenerator;
 public class Order {
 
 	@Id
-	@GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "uuid")
-	@Column(name = "id", unique = true, updatable = false, columnDefinition = "CHAR(36)")
-	private String id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
 	
 	@Column(nullable = false, updatable = false)
 	private LocalDateTime orderDate;
@@ -78,7 +75,7 @@ public class Order {
 		super();
 	}
 
-	public Order(String id) {
+	public Order(long id) {
 		super();
 		this.id = id;
 	}
@@ -101,11 +98,11 @@ public class Order {
 		this.orderDetails = orderDetails;
 	}
 
-	public String getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
