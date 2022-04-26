@@ -8,6 +8,7 @@ import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -19,12 +20,8 @@ import org.hibernate.annotations.GenericGenerator;
 public class User {
 	
 	@Id
-	@GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "uuid")
-	@Column(name = "id", unique = true, updatable = false, columnDefinition = "CHAR(36)")
-	private String id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
 	
 	@Column(nullable = false)
 	private String name;
@@ -48,7 +45,7 @@ public class User {
 		super();
 	}
 
-	public User(String id) {
+	public User(long id) {
 		super();
 		this.id = id;
 	}
@@ -61,7 +58,7 @@ public class User {
 		this.password = password;
 	}
 
-	public User(String id, String name, String email, String phoneNumber, String password) {
+	public User(long id, String name, String email, String phoneNumber, String password) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -118,7 +115,7 @@ public class User {
 		this.orders = orders;
 	}
 
-	public String getId() {
+	public long getId() {
 		return id;
 	}
 

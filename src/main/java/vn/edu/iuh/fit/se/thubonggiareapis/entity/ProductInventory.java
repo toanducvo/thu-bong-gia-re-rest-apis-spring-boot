@@ -21,12 +21,8 @@ import org.hibernate.annotations.GenericGenerator;
 public class ProductInventory implements Serializable{
 	
 	@Id
-	@GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "uuid")
-	@Column(name = "id", unique = true, updatable = false, columnDefinition = "CHAR(36)")
-	private String id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
 	
 	@Column(nullable = false, updatable = false)
 	private int quantity;
@@ -40,74 +36,73 @@ public class ProductInventory implements Serializable{
 	@OneToOne
 	@MapsId
 	@JoinColumn(name = "product_id")
-	@Column(name = "id", unique = true, updatable = false, columnDefinition = "CHAR(36)")
 	private Product product;
 
 	public ProductInventory() {
 		super();
 	}
 
-//	public ProductInventory(int quantity, double cost, LocalDateTime createdAt) {
-//		super();
-//		this.quantity = quantity;
-//		this.cost = cost;
-//		this.createdAt = createdAt;
-//	}
-//
-//	public ProductInventory(String id, int quantity, double cost, LocalDateTime createdAt) {
-//		super();
-//		this.id = id;
-//		this.quantity = quantity;
-//		this.cost = cost;
-//		this.createdAt = createdAt;
-//	}
-//
-//	public ProductInventory(String id) {
-//		super();
-//		this.id = id;
-//	}
-//
-//	public int getQuantity() {
-//		return quantity;
-//	}
-//
-//	public void setQuantity(int quantity) {
-//		this.quantity = quantity;
-//	}
-//
-//	public double getCost() {
-//		return cost;
-//	}
-//
-//	public void setCost(double cost) {
-//		this.cost = cost;
-//	}
-//
-//	public LocalDateTime getCreatedAt() {
-//		return createdAt;
-//	}
-//
-//	public void setCreatedAt(LocalDateTime createdAt) {
-//		this.createdAt = createdAt;
-//	}
-//
-//	public Product getProduct() {
-//		return product;
-//	}
-//
-//	public void setProduct(Product product) {
-//		this.product = product;
-//	}
-//
-//	public String getId() {
-//		return id;
-//	}
-//
-//	@Override
-//	public String toString() {
-//		return "ProductInventory [id=" + id + ", quantity=" + quantity + ", cost=" + cost + ", createdAt=" + createdAt
-//				+ "]";
-//	}
+	public ProductInventory(int quantity, double cost, LocalDateTime createdAt) {
+		super();
+		this.quantity = quantity;
+		this.cost = cost;
+		this.createdAt = createdAt;
+	}
+
+	public ProductInventory(long id, int quantity, double cost, LocalDateTime createdAt) {
+		super();
+		this.id = id;
+		this.quantity = quantity;
+		this.cost = cost;
+		this.createdAt = createdAt;
+	}
+
+	public ProductInventory(long id) {
+		super();
+		this.id = id;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public double getCost() {
+		return cost;
+	}
+
+	public void setCost(double cost) {
+		this.cost = cost;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	@Override
+	public String toString() {
+		return "ProductInventory [id=" + id + ", quantity=" + quantity + ", cost=" + cost + ", createdAt=" + createdAt
+				+ "]";
+	}
 
 	
 	
