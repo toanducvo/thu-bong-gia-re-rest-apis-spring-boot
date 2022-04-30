@@ -38,7 +38,7 @@ public class Promotion {
 	@Column(nullable = false, updatable = false)
 	private double deducted;
 	
-	@Column(nullable = false, updatable = false)
+	@Column(nullable = false)
 	private int limit;
 	
 	@OneToMany(mappedBy = "promotion")
