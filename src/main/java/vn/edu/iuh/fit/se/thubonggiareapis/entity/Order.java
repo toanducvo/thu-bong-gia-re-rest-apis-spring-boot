@@ -48,8 +48,6 @@ public class Order {
 	@JoinColumn(name = "promotion_id")
 	private Promotion promotion;
 	
-	@Column(nullable = false)
-	private String status;
 	
 	@Column(nullable = false, updatable = false)
 	private String shippingAddress;
@@ -67,9 +65,6 @@ public class Order {
 	
 	@OneToMany(mappedBy = "order")
 	private List<OrderDetail> orderDetails = new ArrayList<OrderDetail>();
-	
-	@OneToMany(mappedBy = "order")
-	private List<OrderStatus> orderStatus = new ArrayList<OrderStatus>();
 
 	public Order() {
 		super();
@@ -90,7 +85,6 @@ public class Order {
 		this.shippingCost = shippingCost;
 		this.subTotal = subTotal;
 		this.promotion = promotion;
-		this.status = status;
 		this.shippingAddress = shippingAddress;
 		this.shippingNote = shippingNote;
 		this.customer = customer;
@@ -154,13 +148,6 @@ public class Order {
 		this.promotion = promotion;
 	}
 
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
 
 	public String getShippingAddress() {
 		return shippingAddress;
@@ -202,19 +189,11 @@ public class Order {
 		this.orderDetails = orderDetails;
 	}
 
-	public List<OrderStatus> getOrderStatus() {
-		return orderStatus;
-	}
-
-	public void setOrderStatus(List<OrderStatus> orderStatus) {
-		this.orderStatus = orderStatus;
-	}
 
 	@Override
 	public String toString() {
 		return "Order [id=" + id + ", orderDate=" + orderDate + ", total=" + total + ", discount=" + discount
-				+ ", shippingCost=" + shippingCost + ", subTotal=" + subTotal + ", promotion=" + promotion + ", status="
-				+ status + ", shippingAddress=" + shippingAddress + ", shippingNote=" + shippingNote + ", customer="
+				+ ", shippingCost=" + shippingCost + ", subTotal=" + subTotal + ", promotion=" + promotion + ", shippingAddress=" + shippingAddress + ", shippingNote=" + shippingNote + ", customer="
 				+ customer.getId() + ", approvedBy=" + approvedBy + "]";
 	}
 
