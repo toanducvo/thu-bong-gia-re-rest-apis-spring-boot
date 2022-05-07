@@ -82,8 +82,5 @@ public class Cart {
 				+ cartDetails + "]";
 	}
 
-	
-	
-	
-	
+
 }

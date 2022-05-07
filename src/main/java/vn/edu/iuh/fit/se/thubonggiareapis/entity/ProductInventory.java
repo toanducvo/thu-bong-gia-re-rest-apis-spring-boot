@@ -24,7 +24,7 @@ public class ProductInventory implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@Column(nullable = false, updatable = false)
+	@Column(nullable = false)
 	private int quantity;
 	
 	@Column(nullable = false, updatable = false)
