@@ -38,6 +38,26 @@ public class UserServiceImpl implements IUserService{
 		}
 		return userDTOs;
 	}
+
+	@Override
+	public UserDTO getUser(long id) {
+		User user = userRepository.getById(id);
+		UserDTO userDTO = userConverter.toUserDTO(user);
+		return userDTO;
+	}
+
+	@Override
+	public void updateUser(UserDTO userDTO) {
+		User user = userConverter.toUserEntity(userDTO);
+		userRepository.save(user);
+		
+	}
+
+	@Override
+	public void deleteUser(long id) {
+		userRepository.deleteById(id);
+		
+	}
 	 
 	
 
