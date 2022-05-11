@@ -34,4 +34,4 @@ build/
 bin/
 
 # Spring Boot Properties
-*.properties
+**/**/resources/application.properties

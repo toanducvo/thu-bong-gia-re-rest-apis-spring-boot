@@ -37,13 +37,12 @@ public class ProductServiceImpl implements IProductService {
 
         productInventoryService.addProductInventory(productInventoryDTO);
 
-
         return productConverter.toProductDTO(product);
     }
 
     @Override
     public List<ProductDTO> getProducts() {
-        List<ProductDTO> productDTOs = new ArrayList<ProductDTO>();
+        List<ProductDTO> productDTOs = new ArrayList<>();
         List<Product> products = productRepository.findAll();
 
         if (products.size() == 0) {
@@ -55,6 +54,22 @@ public class ProductServiceImpl implements IProductService {
         }
 
         return productDTOs;
+    }
+
+    @Override
+    public List<ProductDTO> getProductsByIds(List<Long> ids) {
+        List<Product> products = productRepository.findAllById(ids);
+        List<ProductDTO> productDTOS = new ArrayList<>();
+
+        if (products.size() == 0) {
+            return new ArrayList<>();
+        }
+
+        products.forEach(product -> {
+            productDTOS.add(productConverter.toProductDTO(product));
+        });
+
+        return productDTOS;
     }
 
     @Override

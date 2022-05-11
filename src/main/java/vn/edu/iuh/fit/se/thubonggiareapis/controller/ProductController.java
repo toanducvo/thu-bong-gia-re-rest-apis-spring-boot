@@ -10,6 +10,7 @@ import vn.edu.iuh.fit.se.thubonggiareapis.service.IProductService;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/products")
@@ -35,8 +36,13 @@ public class ProductController {
     @GetMapping(value = {
             "", "/"
     })
-    public ResponseEntity<List<ProductDTO>> getProducts() {
+    public ResponseEntity<List<ProductDTO>> getProducts(@RequestParam(name = "id", required = false) Optional<List<Long>> ids) {
         try {
+            if (ids.isPresent()) {
+                List<ProductDTO> result = productService.getProductsByIds(ids.get());
+                return result.size() > 0 ?  new ResponseEntity<>(productService.getProductsByIds(ids.get()), HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+
             List<ProductDTO> products = productService.getProducts();
             if (products.size() == 0) {
                 return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
