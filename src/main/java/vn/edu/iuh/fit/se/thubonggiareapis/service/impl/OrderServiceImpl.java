@@ -4,14 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vn.edu.iuh.fit.se.thubonggiareapis.converter.*;
 import vn.edu.iuh.fit.se.thubonggiareapis.dto.OrderDTO;
-import vn.edu.iuh.fit.se.thubonggiareapis.dto.OrderDetailDTO;
 import vn.edu.iuh.fit.se.thubonggiareapis.entity.Order;
-import vn.edu.iuh.fit.se.thubonggiareapis.entity.OrderDetail;
-import vn.edu.iuh.fit.se.thubonggiareapis.entity.Promotion;
 import vn.edu.iuh.fit.se.thubonggiareapis.repository.OrderRepository;
 import vn.edu.iuh.fit.se.thubonggiareapis.service.*;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -53,7 +49,7 @@ public class OrderServiceImpl implements IOrderService {
     public List<OrderDTO> getAllOrders() {
         List<OrderDTO> orders = new ArrayList<>();
         orderRepository.findAll().forEach((order -> {
-            OrderDTO orderDTO = orderConverter.toDTO(order);
+            OrderDTO orderDTO = orderConverter.toDto(order);
             orders.add(orderDTO);
         }));
         return orders;
@@ -65,7 +61,7 @@ public class OrderServiceImpl implements IOrderService {
         if (Objects.isNull(result)) {
             return null;
         }
-        return orderConverter.toDTO(result);
+        return orderConverter.toDto(result);
     }
 
     @Override
@@ -74,12 +70,12 @@ public class OrderServiceImpl implements IOrderService {
 
         order.setPromotion(
                 orderDTO.getPromotionCode() == null ? null :
-                promotionConverter.toPromotionEntity(
+                promotionConverter.toEntity(
                         promotionService.getPromotionByCode(orderDTO.getPromotionCode())
                 ));
 
         order.setCustomer(
-                customerConverter.toCustomerEntity(
+                customerConverter.toEntity(
                         customerService.getCustomer(orderDTO.getCustomer())
                 )
         );
@@ -106,7 +102,7 @@ public class OrderServiceImpl implements IOrderService {
 //        }
 //        order.setOrderDetails(orderDetails);
 
-        return orderConverter.toDTO(order);
+        return orderConverter.toDto(order);
     }
 
 }

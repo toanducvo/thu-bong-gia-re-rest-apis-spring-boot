@@ -8,7 +8,7 @@ import vn.edu.iuh.fit.se.thubonggiareapis.entity.Product;
 
 @Component
 public class OrderDetailConverter {
-    public OrderDetailDTO toDTO(OrderDetail orderDetail) {
+    public OrderDetailDTO toDto(OrderDetail orderDetail) {
         return new OrderDetailDTO(
                 orderDetail.getOrder().getId(),
                 orderDetail.getProduct().getId(),

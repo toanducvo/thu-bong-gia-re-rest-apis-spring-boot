@@ -7,12 +7,10 @@ import vn.edu.iuh.fit.se.thubonggiareapis.dto.OrderDetailDTO;
 import vn.edu.iuh.fit.se.thubonggiareapis.entity.Customer;
 import vn.edu.iuh.fit.se.thubonggiareapis.entity.Order;
 import vn.edu.iuh.fit.se.thubonggiareapis.entity.OrderDetail;
-import vn.edu.iuh.fit.se.thubonggiareapis.entity.Promotion;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Component
 public class OrderConverter {
@@ -40,7 +38,7 @@ public class OrderConverter {
         return order;
     }
 
-    public OrderDTO toDTO(Order order) {
+    public OrderDTO toDto(Order order) {
         OrderDTO orderDTO = new OrderDTO();
         orderDTO.setId(order.getId());
         orderDTO.setOrderDate(order.getOrderDate());
@@ -55,7 +53,7 @@ public class OrderConverter {
 
         List<OrderDetailDTO> orderDetailDTOs = new ArrayList<>();
         for (OrderDetail orderDetail : order.getOrderDetails()) {
-            orderDetailDTOs.add(orderDetailConverter.toDTO(orderDetail));
+            orderDetailDTOs.add(orderDetailConverter.toDto(orderDetail));
         }
         orderDTO.setDetails(orderDetailDTOs);
 

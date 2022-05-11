@@ -6,7 +6,7 @@ import vn.edu.iuh.fit.se.thubonggiareapis.entity.Promotion;
 
 @Component
 public class PromotionConverter {
-    public Promotion toPromotionEntity(PromotionDTO promotionDTO) {
+    public Promotion toEntity(PromotionDTO promotionDTO) {
         Promotion promotion;
 
         if (promotionDTO.getId() != 0) {
@@ -23,7 +23,7 @@ public class PromotionConverter {
         return promotion;
     }
 
-    public PromotionDTO toPromotionDTO(Promotion promotion) {
+    public PromotionDTO toDto(Promotion promotion) {
         PromotionDTO promotionDTO = new PromotionDTO();
 
         if (promotion.getId() != 0) {

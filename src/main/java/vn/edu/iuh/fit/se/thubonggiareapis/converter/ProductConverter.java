@@ -7,7 +7,7 @@ import vn.edu.iuh.fit.se.thubonggiareapis.entity.Product;
 @Component
 public class ProductConverter {
 
-    public Product toProductEntity(ProductDTO productDTO) {
+    public Product toEntity(ProductDTO productDTO) {
         Product product;
         if (productDTO.getId() != 0) {
             product = new Product(productDTO.getId());
@@ -30,7 +30,7 @@ public class ProductConverter {
         return product;
     }
 
-    public ProductDTO toProductDTO(Product product) {
+    public ProductDTO toDto(Product product) {
         ProductDTO productDTO = new ProductDTO();
         if (product.getId() != 0) {
             productDTO.setId(product.getId());

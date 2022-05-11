@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import vn.edu.iuh.fit.se.thubonggiareapis.converter.ProductConverter;
 import vn.edu.iuh.fit.se.thubonggiareapis.dto.ProductDTO;
 import vn.edu.iuh.fit.se.thubonggiareapis.dto.ProductInventoryDTO;
-import vn.edu.iuh.fit.se.thubonggiareapis.dto.PromotionDTO;
 import vn.edu.iuh.fit.se.thubonggiareapis.entity.Product;
 import vn.edu.iuh.fit.se.thubonggiareapis.repository.ProductRepository;
 import vn.edu.iuh.fit.se.thubonggiareapis.service.IProductInventoryService;
@@ -30,14 +29,14 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public ProductDTO addProduct(ProductDTO productDTO) {
-        Product product = productConverter.toProductEntity(productDTO);
+        Product product = productConverter.toEntity(productDTO);
         product = productRepository.save(product);
 
         ProductInventoryDTO productInventoryDTO = new ProductInventoryDTO(0, productDTO.getCost(), LocalDateTime.now(), product.getId());
 
         productInventoryService.addProductInventory(productInventoryDTO);
 
-        return productConverter.toProductDTO(product);
+        return productConverter.toDto(product);
     }
 
     @Override
@@ -49,7 +48,7 @@ public class ProductServiceImpl implements IProductService {
             return new ArrayList<>();
         }
         for (Product product : products) {
-            ProductDTO productDTO = productConverter.toProductDTO(product);
+            ProductDTO productDTO = productConverter.toDto(product);
             productDTOs.add(productDTO);
         }
 
@@ -66,7 +65,7 @@ public class ProductServiceImpl implements IProductService {
         }
 
         products.forEach(product -> {
-            productDTOS.add(productConverter.toProductDTO(product));
+            productDTOS.add(productConverter.toDto(product));
         });
 
         return productDTOS;
@@ -78,7 +77,7 @@ public class ProductServiceImpl implements IProductService {
         if (Objects.isNull(product)) {
             return null;
         }
-        return productConverter.toProductDTO(product);
+        return productConverter.toDto(product);
     }
 
 }

@@ -6,7 +6,7 @@ import vn.edu.iuh.fit.se.thubonggiareapis.entity.User;
 
 @Component
 public class UserConverter {
-    public User toUserEntity(UserDTO userDTO) {
+    public User toEntity(UserDTO userDTO) {
         User user = new User();
         if (userDTO.getId() != 0) {
             user.setId(userDTO.getId());
@@ -19,7 +19,7 @@ public class UserConverter {
         return user;
     }
 
-    public UserDTO toUserDTO(User user) {
+    public UserDTO toDto(User user) {
         UserDTO userDTO = new UserDTO();
 
         if (user.getId() != 0) {

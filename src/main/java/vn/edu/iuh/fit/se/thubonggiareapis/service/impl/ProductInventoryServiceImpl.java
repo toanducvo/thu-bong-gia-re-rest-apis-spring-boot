@@ -26,7 +26,7 @@ public class ProductInventoryServiceImpl implements IProductInventoryService {
 
     @Override
     public void addProductInventory(ProductInventoryDTO productInventoryDTO) {
-        ProductInventory productInventory = productInventoryConvert.toProductInventoryEntity(productInventoryDTO);
+        ProductInventory productInventory = productInventoryConvert.toEntity(productInventoryDTO);
         Product product = productRepository.getById(productInventoryDTO.getProduct());
         productInventory.setProduct(product);
         productInventoryRepository.save(productInventory);
@@ -52,7 +52,7 @@ public class ProductInventoryServiceImpl implements IProductInventoryService {
         if (Objects.isNull(productInventory)) {
             return null;
         }
-        return productInventoryConvert.toProductInventoryDTO(productInventory);
+        return productInventoryConvert.toDto(productInventory);
     }
 
 }

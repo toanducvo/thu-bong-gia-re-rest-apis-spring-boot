@@ -22,9 +22,9 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserDTO addUser(UserDTO userDTO) {
-        User user = userConverter.toUserEntity(userDTO);
+        User user = userConverter.toEntity(userDTO);
         user = userRepository.save(user);
-        return userConverter.toUserDTO(user);
+        return userConverter.toDto(user);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class UserServiceImpl implements IUserService {
         List<UserDTO> userDTOs = new ArrayList<UserDTO>();
         List<User> users = userRepository.findAll();
         for (User user : users) {
-            UserDTO userDTO = userConverter.toUserDTO(user);
+            UserDTO userDTO = userConverter.toDto(user);
             userDTOs.add(userDTO);
         }
         return userDTOs;
@@ -41,13 +41,13 @@ public class UserServiceImpl implements IUserService {
     @Override
     public UserDTO getUser(long id) {
         User user = userRepository.getById(id);
-        UserDTO userDTO = userConverter.toUserDTO(user);
+        UserDTO userDTO = userConverter.toDto(user);
         return userDTO;
     }
 
     @Override
     public void updateUser(UserDTO userDTO) {
-        User user = userConverter.toUserEntity(userDTO);
+        User user = userConverter.toEntity(userDTO);
         userRepository.save(user);
 
     }

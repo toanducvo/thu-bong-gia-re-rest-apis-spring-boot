@@ -20,15 +20,15 @@ public class CustomerServiceImpl implements ICustomerService {
     @Override
     public CustomerDTO getCustomer(long id) {
         Customer customer = customerRepository.getById(id);
-        CustomerDTO customerDTO = customerConverter.toCustomerDTO(customer);
+        CustomerDTO customerDTO = customerConverter.toDto(customer);
         return customerDTO;
     }
 
     @Override
     public CustomerDTO addCustomer(CustomerDTO customerDTO) {
-        Customer customer = customerConverter.toCustomerEntity(customerDTO);
+        Customer customer = customerConverter.toEntity(customerDTO);
         customer = customerRepository.save(customer);
-        return customerConverter.toCustomerDTO(customer);
+        return customerConverter.toDto(customer);
     }
 
 }

@@ -26,23 +26,23 @@ public class PromotionServiceImpl implements IPromotionService {
 
     @Override
     public PromotionDTO addPromotion(PromotionDTO promotionDTO) {
-        Promotion promotion = promotionConverter.toPromotionEntity(promotionDTO);
+        Promotion promotion = promotionConverter.toEntity(promotionDTO);
         User user = userRepository.getById(promotionDTO.getCreatedBy());
         promotion.setCreatedBy(user);
         promotionRepository.save(promotion);
-        return promotionConverter.toPromotionDTO(promotion);
+        return promotionConverter.toDto(promotion);
     }
 
     @Override
     public PromotionDTO getPromotion(long id) {
         Promotion promotion = promotionRepository.getById(id);
-        return promotionConverter.toPromotionDTO(promotion);
+        return promotionConverter.toDto(promotion);
     }
 
     @Override
     public void updatePromotion(PromotionDTO promotionDTO) {
         // TODO Auto-generated method stub
-        Promotion promotion = promotionConverter.toPromotionEntity(promotionDTO);
+        Promotion promotion = promotionConverter.toEntity(promotionDTO);
         User user = userRepository.getById(promotionDTO.getCreatedBy());
         promotion.setCreatedBy(user);
         System.out.println("entity:" + promotion);
@@ -55,7 +55,7 @@ public class PromotionServiceImpl implements IPromotionService {
         if (Objects.isNull(promotion)) {
             return null;
         }
-        return promotionConverter.toPromotionDTO(promotion);
+        return promotionConverter.toDto(promotion);
     }
 
 }

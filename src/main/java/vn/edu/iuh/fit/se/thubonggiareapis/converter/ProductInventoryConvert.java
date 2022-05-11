@@ -6,7 +6,7 @@ import vn.edu.iuh.fit.se.thubonggiareapis.entity.ProductInventory;
 
 @Component
 public class ProductInventoryConvert {
-    public ProductInventory toProductInventoryEntity(ProductInventoryDTO productInventoryDTO) {
+    public ProductInventory toEntity(ProductInventoryDTO productInventoryDTO) {
         ProductInventory productInventory;
         if (productInventoryDTO.getId() != 0) {
             productInventory = new ProductInventory(productInventoryDTO.getId());
@@ -20,7 +20,7 @@ public class ProductInventoryConvert {
         return productInventory;
     }
 
-    public ProductInventoryDTO toProductInventoryDTO(ProductInventory productInventory) {
+    public ProductInventoryDTO toDto(ProductInventory productInventory) {
         ProductInventoryDTO productInventoryDTO = new ProductInventoryDTO();
         if (productInventory.getId() != 0) {
             productInventoryDTO.setId(productInventory.getId());

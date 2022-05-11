@@ -7,7 +7,7 @@ import vn.edu.iuh.fit.se.thubonggiareapis.entity.Customer;
 @Component
 public class CustomerConverter {
 
-    public Customer toCustomerEntity(CustomerDTO customerDTO) {
+    public Customer toEntity(CustomerDTO customerDTO) {
         Customer customer = new Customer();
 
         if (customerDTO.getId() != 0) {
@@ -21,7 +21,7 @@ public class CustomerConverter {
         return customer;
     }
 
-    public CustomerDTO toCustomerDTO(Customer customer) {
+    public CustomerDTO toDto(Customer customer) {
         CustomerDTO customerDTO = new CustomerDTO();
 
         if (customer.getId() != 0) {

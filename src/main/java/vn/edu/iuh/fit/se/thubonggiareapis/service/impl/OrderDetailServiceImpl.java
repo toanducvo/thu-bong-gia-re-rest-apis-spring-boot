@@ -5,13 +5,11 @@ import org.springframework.stereotype.Service;
 import vn.edu.iuh.fit.se.thubonggiareapis.converter.OrderConverter;
 import vn.edu.iuh.fit.se.thubonggiareapis.converter.OrderDetailConverter;
 import vn.edu.iuh.fit.se.thubonggiareapis.converter.ProductConverter;
-import vn.edu.iuh.fit.se.thubonggiareapis.dto.OrderDTO;
 import vn.edu.iuh.fit.se.thubonggiareapis.dto.OrderDetailDTO;
 import vn.edu.iuh.fit.se.thubonggiareapis.entity.Order;
 import vn.edu.iuh.fit.se.thubonggiareapis.entity.OrderDetail;
 import vn.edu.iuh.fit.se.thubonggiareapis.repository.OrderDetailRepository;
 import vn.edu.iuh.fit.se.thubonggiareapis.service.IOrderDetailService;
-import vn.edu.iuh.fit.se.thubonggiareapis.service.IOrderService;
 import vn.edu.iuh.fit.se.thubonggiareapis.service.IProductService;
 
 import java.util.ArrayList;
@@ -50,7 +48,7 @@ public class OrderDetailServiceImpl implements IOrderDetailService {
             detail.setOrder(order);
 
             // find a product by id and convert itself to entity
-            detail.setProduct(productConverter.toProductEntity(
+            detail.setProduct(productConverter.toEntity(
                     productService.getProductById(orderDetailDTO.getProduct())
             ));
 
@@ -80,7 +78,7 @@ public class OrderDetailServiceImpl implements IOrderDetailService {
         // each order detail entity from list
         for (OrderDetail orderDetail: result) {
             // convert to Order detail DTO
-            orderDetaiDto.add(orderDetailConverter.toDTO(orderDetail));
+            orderDetaiDto.add(orderDetailConverter.toDto(orderDetail));
         }
 
         // return list of Order detail DTO
