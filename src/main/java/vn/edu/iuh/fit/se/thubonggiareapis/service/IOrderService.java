@@ -11,5 +11,5 @@ public interface IOrderService {
 
     OrderDTO getOrderById(Long orderId);
 
-    void addOrder(OrderDTO order);
+    OrderDTO addOrder(OrderDTO order);
 }

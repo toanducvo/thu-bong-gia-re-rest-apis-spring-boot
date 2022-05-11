@@ -23,7 +23,7 @@ public class OrderDetailConverter {
                 new Order(orderDetailDTO.getOrder()),
                 new Product(orderDetailDTO.getProduct()),
                 orderDetailDTO.getQuantity(),
-                orderDetailDTO.getCost(),
+                0,
                 orderDetailDTO.getQuantity() * orderDetailDTO.getCost()
         );
     }

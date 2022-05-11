@@ -7,7 +7,7 @@ import vn.edu.iuh.fit.se.thubonggiareapis.service.IOrderService;
 import vn.edu.iuh.fit.se.thubonggiareapis.service.IPromotionService;
 
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/orders")
 public class OrderController {
 
     @Autowired
@@ -21,11 +21,11 @@ public class OrderController {
         return orderService.getOrderById(id);
     }
 
-    @PostMapping(value = "/", consumes = {
+    @PostMapping(value = {"", "/"}, consumes = {
             "application/json",
             "application/x-www-form-urlencoded"
     }, name = "Add an order")
-    public void addOrder(@RequestBody OrderDTO orderDTO) {
-        orderService.addOrder(orderDTO);
+    public OrderDTO addOrder(@RequestBody OrderDTO orderDTO) {
+        return orderService.addOrder(orderDTO);
     }
 }

@@ -13,33 +13,33 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = false)
     private LocalDateTime orderDate;
 
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = false)
     private double total;
 
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = false)
     private double discount;
 
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = false)
     private double shippingCost;
 
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = false)
     private double subTotal;
 
 //	@Column(nullable = false, updatable = false) //note
 //	private String promotionCode;
 
     @ManyToOne
-    @JoinColumn(name = "promotion_id")
+    @JoinColumn(name = "promotion_code")
     private Promotion promotion;
 
 
-    @Column(nullable = false, updatable = false, columnDefinition = "NVARCHAR(500)")
+    @Column(nullable = false, columnDefinition = "NVARCHAR(500)")
     private String shippingAddress;
 
-    @Column(nullable = false, updatable = false, columnDefinition = "NVARCHAR(1000)")
+    @Column(nullable = false, columnDefinition = "NVARCHAR(1000)")
     private String shippingNote;
 
     @ManyToOne
@@ -58,14 +58,10 @@ public class Order {
     }
 
     public Order(long id) {
-        super();
         this.id = id;
     }
 
-    public Order(LocalDateTime orderDate, double total, double discount, double shippingCost, double subTotal,
-                 Promotion promotion, String status, String shippingAddress, String shippingNote, Customer customer,
-                 List<OrderDetail> orderDetails) {
-        super();
+    public Order(LocalDateTime orderDate, double total, double discount, double shippingCost, double subTotal, Promotion promotion, String shippingAddress, String shippingNote, Customer customer, List<OrderDetail> orderDetails) {
         this.orderDate = orderDate;
         this.total = total;
         this.discount = discount;
@@ -77,8 +73,6 @@ public class Order {
         this.customer = customer;
         this.orderDetails = orderDetails;
     }
-
-
 
     public Order(long id, LocalDateTime orderDate, double total, double discount, double shippingCost, double subTotal, Promotion promotion, String shippingAddress, String shippingNote, Customer customer, List<OrderDetail> orderDetails) {
         this.id = id;
@@ -150,7 +144,6 @@ public class Order {
         this.promotion = promotion;
     }
 
-
     public String getShippingAddress() {
         return shippingAddress;
     }
@@ -182,7 +175,6 @@ public class Order {
     public void setOrderDetails(List<OrderDetail> orderDetails) {
         this.orderDetails = orderDetails;
     }
-
 
     @Override
     public String toString() {

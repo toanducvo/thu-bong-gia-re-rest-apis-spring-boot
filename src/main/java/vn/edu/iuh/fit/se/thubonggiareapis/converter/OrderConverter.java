@@ -21,19 +21,23 @@ public class OrderConverter {
     private OrderDetailConverter orderDetailConverter;
 
     public Order toEntity(OrderDTO orderDTO) {
-        return new Order(
-                orderDTO.getId(),
-                LocalDateTime.now(),
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                Objects.isNull(orderDTO.getPromotionCode()) ? null : new Promotion(),
-                orderDTO.getShippingAddress(),
-                orderDTO.getShippingNote(),
-                new Customer(orderDTO.getCustomer()),
-                new ArrayList<>()
-        );
+        Order order = new Order();
+
+        if (order.getId() != 0) {
+            order.setId(orderDTO.getId());
+        }
+
+        order.setOrderDate(LocalDateTime.now());
+        order.setTotal(0);
+        order.setDiscount(0);
+        order.setShippingCost(orderDTO.getShippingCost());
+        order.setSubTotal(0);
+        order.setShippingAddress(orderDTO.getShippingAddress());
+        order.setShippingNote(orderDTO.getShippingNote());
+        order.setCustomer(new Customer(orderDTO.getCustomer()));
+        order.setOrderDetails(new ArrayList<>());
+
+        return order;
     }
 
     public OrderDTO toDTO(Order order) {
@@ -44,7 +48,7 @@ public class OrderConverter {
         orderDTO.setDiscount(order.getDiscount());
         orderDTO.setShippingCost(order.getShippingCost());
         orderDTO.setSubTotal(order.getSubTotal());
-        orderDTO.setPromotionCode(order.getPromotion().getPromotionCode());
+        orderDTO.setPromotionCode(order.getPromotion() != null ? order.getPromotion().getPromotionCode() : null);
         orderDTO.setShippingAddress(order.getShippingAddress());
         orderDTO.setShippingNote(order.getShippingNote());
         orderDTO.setCustomer(order.getCustomer().getId());

@@ -10,6 +10,6 @@ import java.util.List;
 
 @Service
 public interface IOrderDetailService {
-    void addOrderDetail(Order orderDTO, List<OrderDetailDTO> details);
+    Double addOrderDetail(Order orderDTO, List<OrderDetailDTO> details);
     List<OrderDetailDTO> getOrderDetailByOrderId (Long orderId);
 }

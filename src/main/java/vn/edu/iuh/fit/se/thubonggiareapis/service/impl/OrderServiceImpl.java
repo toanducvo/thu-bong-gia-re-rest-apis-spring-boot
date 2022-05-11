@@ -7,7 +7,7 @@ import vn.edu.iuh.fit.se.thubonggiareapis.dto.OrderDTO;
 import vn.edu.iuh.fit.se.thubonggiareapis.dto.OrderDetailDTO;
 import vn.edu.iuh.fit.se.thubonggiareapis.entity.Order;
 import vn.edu.iuh.fit.se.thubonggiareapis.entity.OrderDetail;
-import vn.edu.iuh.fit.se.thubonggiareapis.entity.Product;
+import vn.edu.iuh.fit.se.thubonggiareapis.entity.Promotion;
 import vn.edu.iuh.fit.se.thubonggiareapis.repository.OrderRepository;
 import vn.edu.iuh.fit.se.thubonggiareapis.service.*;
 
@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 public class OrderServiceImpl implements IOrderService {
@@ -43,6 +42,12 @@ public class OrderServiceImpl implements IOrderService {
     @Autowired
     private ProductConverter productConverter;
 
+    @Autowired
+    private IOrderDetailService orderDetailService;
+
+
+    @Autowired
+    private OrderDetailConverter orderDetailConverter;
 
     @Override
     public List<OrderDTO> getAllOrders() {
@@ -63,12 +68,8 @@ public class OrderServiceImpl implements IOrderService {
         return orderConverter.toDTO(result);
     }
 
-
-
     @Override
-    public void addOrder(OrderDTO orderDTO) {
-        List<OrderDetail> orderDetails = new ArrayList<>();
-
+    public OrderDTO addOrder(OrderDTO orderDTO) {
         Order order = orderConverter.toEntity(orderDTO);
 
         order.setPromotion(
@@ -83,11 +84,29 @@ public class OrderServiceImpl implements IOrderService {
                 )
         );
 
+        System.out.println(order.toString());
 
-//        orderRepository.save(order);
+        orderRepository.save(order);
 
+        order.setSubTotal(orderDetailService.addOrderDetail(order, orderDTO.getDetails()));
 
-//        return orderConverter.toDTO(order);
+        order.setTotal(order.getSubTotal() + order.getShippingCost());
+
+        if (order.getPromotion() != null) {
+            order.setDiscount(order.getPromotion().getDeducted());
+            order.setTotal(order.getTotal() - order.getDiscount());
+        }
+
+        orderRepository.save(order);
+//        List<OrderDetail> orderDetails = new ArrayList<>();
+//        List<OrderDetailDTO> orderDetailDTOS = orderDetailService.getOrderDetailByOrderId(order.getId());
+//
+//        for (OrderDetailDTO orderDetailDTO : orderDetailDTOS) {
+//            orderDetails.add(orderDetailConverter.toEntity(orderDetailDTO));
+//        }
+//        order.setOrderDetails(orderDetails);
+
+        return orderConverter.toDTO(order);
     }
 
 }
