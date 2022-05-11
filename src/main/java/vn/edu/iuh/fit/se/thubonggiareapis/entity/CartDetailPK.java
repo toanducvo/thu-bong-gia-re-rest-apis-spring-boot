@@ -6,8 +6,8 @@ import java.util.Objects;
 
 @Embeddable
 public class CartDetailPK implements Serializable {
-    private Cart cart;
-    private Product product;
+    private Long cart;
+    private Long product;
 
     public CartDetailPK() {
         super();

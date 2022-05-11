@@ -66,7 +66,6 @@ public class OrderDetailServiceImpl implements IOrderDetailService {
 
         }
         // finally save all order details to database
-//        orderDetailRepository.saveAll(orderDetails);
         return totalPrice;
     }
 
