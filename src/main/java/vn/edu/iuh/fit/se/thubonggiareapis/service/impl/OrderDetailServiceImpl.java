@@ -60,7 +60,7 @@ public class OrderDetailServiceImpl implements IOrderDetailService {
             detail.setCost(detail.getProduct().getCost());
             detail.setTotalLine(detail.getQuantity() * detail.getCost());
 
-//            orderDetailRepository.save(detail);
+            orderDetailRepository.save(detail);
 
             totalPrice += detail.getTotalLine();
 

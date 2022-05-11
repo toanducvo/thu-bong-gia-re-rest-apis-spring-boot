@@ -33,7 +33,7 @@ public class OrderConverter {
         order.setShippingCost(orderDTO.getShippingCost());
         order.setSubTotal(0);
         order.setShippingAddress(orderDTO.getShippingAddress());
-        order.setShippingNote(orderDTO.getShippingNote());
+        order.setShippingNote(order.getShippingNote() != null ? order.getShippingNote() : null);
         order.setCustomer(new Customer(orderDTO.getCustomer()));
         order.setOrderDetails(new ArrayList<>());
 
@@ -50,7 +50,7 @@ public class OrderConverter {
         orderDTO.setSubTotal(order.getSubTotal());
         orderDTO.setPromotionCode(order.getPromotion() != null ? order.getPromotion().getPromotionCode() : null);
         orderDTO.setShippingAddress(order.getShippingAddress());
-        orderDTO.setShippingNote(order.getShippingNote());
+        orderDTO.setShippingNote(order.getShippingNote() != null ? order.getShippingNote() : null );
         orderDTO.setCustomer(order.getCustomer().getId());
 
         List<OrderDetailDTO> orderDetailDTOs = new ArrayList<>();
