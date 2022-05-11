@@ -1,86 +1,80 @@
 package vn.edu.iuh.fit.se.thubonggiareapis.entity;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 @Entity
 @Table(name = "carts")
 public class Cart {
-	
-	@Id
-	private String token;
-	
-	@Column(nullable = false, updatable = false)
-	private LocalDateTime createdAt;
 
-	@Column(nullable = false, updatable = false)
-	private LocalDateTime expiredAt;
-	
-	@OneToMany(mappedBy = "cart")
-	private List<CartDetail> cartDetails = new ArrayList<CartDetail>();
+    @Id
+    private String token;
 
-	public Cart() {
-		super();
-	}
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 
-	public Cart(String token) {
-		super();
-		this.token = token;
-	}
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime expiredAt;
 
-	public Cart(String token, LocalDateTime createdAt, LocalDateTime expiredAt, List<CartDetail> cartDetails) {
-		super();
-		this.token = token;
-		this.createdAt = createdAt;
-		this.expiredAt = expiredAt;
-		this.cartDetails = cartDetails;
-	}
+    @OneToMany(mappedBy = "cart")
+    private List<CartDetail> cartDetails = new ArrayList<CartDetail>();
 
-	public String getToken() {
-		return token;
-	}
+    public Cart() {
+        super();
+    }
 
-	public void setToken(String token) {
-		this.token = token;
-	}
+    public Cart(String token) {
+        super();
+        this.token = token;
+    }
 
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
-	}
+    public Cart(String token, LocalDateTime createdAt, LocalDateTime expiredAt, List<CartDetail> cartDetails) {
+        super();
+        this.token = token;
+        this.createdAt = createdAt;
+        this.expiredAt = expiredAt;
+        this.cartDetails = cartDetails;
+    }
 
-	public void setCreatedAt(LocalDateTime createdAt) {
-		this.createdAt = createdAt;
-	}
+    public String getToken() {
+        return token;
+    }
 
-	public LocalDateTime getExpiredAt() {
-		return expiredAt;
-	}
+    public void setToken(String token) {
+        this.token = token;
+    }
 
-	public void setExpiredAt(LocalDateTime expiredAt) {
-		this.expiredAt = expiredAt;
-	}
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
 
-	public List<CartDetail> getCartDetails() {
-		return cartDetails;
-	}
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
 
-	public void setCartDetails(List<CartDetail> cartDetails) {
-		this.cartDetails = cartDetails;
-	}
+    public LocalDateTime getExpiredAt() {
+        return expiredAt;
+    }
 
-	@Override
-	public String toString() {
-		return "Cart [token=" + token + ", createdAt=" + createdAt + ", expiredAt=" + expiredAt + ", cartDetails="
-				+ cartDetails + "]";
-	}
+    public void setExpiredAt(LocalDateTime expiredAt) {
+        this.expiredAt = expiredAt;
+    }
+
+    public List<CartDetail> getCartDetails() {
+        return cartDetails;
+    }
+
+    public void setCartDetails(List<CartDetail> cartDetails) {
+        this.cartDetails = cartDetails;
+    }
+
+    @Override
+    public String toString() {
+        return "Cart [token=" + token + ", createdAt=" + createdAt + ", expiredAt=" + expiredAt + ", cartDetails="
+                + cartDetails + "]";
+    }
 
 
 }

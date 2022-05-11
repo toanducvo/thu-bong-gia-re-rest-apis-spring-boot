@@ -1,98 +1,88 @@
 package vn.edu.iuh.fit.se.thubonggiareapis.entity;
 
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @IdClass(OrderDetailPK.class)
 @Table(name = "orderDetails")
 public class OrderDetail {
-	@Id
-	@ManyToOne
-	@JoinColumn(name = "order_id")
-	private Order order;
+    @Id
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
 
-	@Id
-	@ManyToOne
-	@JoinColumn(name = "product_id")
-	private Product product;
+    @Id
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 
-	@Column(nullable = false, updatable = false)
-	private int quantity;
+    @Column(nullable = false, updatable = false)
+    private int quantity;
 
-	@Column(nullable = false, updatable = false)
-	private double cost;
-	
-	@Column(nullable = false, updatable = false)
-	private double totalLine;
+    @Column(nullable = false, updatable = false)
+    private double cost;
 
-	public OrderDetail() {
-		super();
-	}
+    @Column(nullable = false, updatable = false)
+    private double totalLine;
 
-	public OrderDetail(Order order, Product product, int quantity, double cost, double totalLine) {
-		super();
-		this.order = order;
-		this.product = product;
-		this.quantity = quantity;
-		this.cost = cost;
-		this.totalLine = totalLine;
-	}
+    public OrderDetail() {
+        super();
+    }
 
-	public Order getOrder() {
-		return order;
-	}
+    public OrderDetail(Order order, Product product, int quantity, double cost, double totalLine) {
+        super();
+        this.order = order;
+        this.product = product;
+        this.quantity = quantity;
+        this.cost = cost;
+        this.totalLine = totalLine;
+    }
 
-	public void setOrder(Order order) {
-		this.order = order;
-	}
+    public Order getOrder() {
+        return order;
+    }
 
-	public Product getProduct() {
-		return product;
-	}
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 
-	public void setProduct(Product product) {
-		this.product = product;
-	}
+    public Product getProduct() {
+        return product;
+    }
 
-	public int getQuantity() {
-		return quantity;
-	}
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
+    public int getQuantity() {
+        return quantity;
+    }
 
-	public double getCost() {
-		return cost;
-	}
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 
-	public void setCost(double cost) {
-		this.cost = cost;
-	}
+    public double getCost() {
+        return cost;
+    }
 
-	public double getTotalLine() {
-		return totalLine;
-	}
+    public void setCost(double cost) {
+        this.cost = cost;
+    }
 
-	public void setTotalLine(double totalLine) {
-		this.totalLine = totalLine;
-	}
+    public double getTotalLine() {
+        return totalLine;
+    }
 
-	@Override
-	public String toString() {
-		return "OrderDetail [order=" + order + ", product=" + product + ", quantity=" + quantity + ", cost=" + cost
-				+ ", totalLine=" + totalLine + "]";
-	}
-	
-	
+    public void setTotalLine(double totalLine) {
+        this.totalLine = totalLine;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderDetail [order=" + order + ", product=" + product + ", quantity=" + quantity + ", cost=" + cost
+                + ", totalLine=" + totalLine + "]";
+    }
+
 
 }
