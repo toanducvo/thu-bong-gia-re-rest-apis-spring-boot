@@ -6,7 +6,7 @@ import java.util.Objects;
 
 @Embeddable
 public class CartDetailPK implements Serializable {
-    private Long cart;
+    private String cart;
     private Long product;
 
     public CartDetailPK() {

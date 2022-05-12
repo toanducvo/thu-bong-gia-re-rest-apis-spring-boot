@@ -14,7 +14,7 @@ public class CartDetail {
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "cartId")
+    @JoinColumn(name = "cart_token")
     private Cart cart;
 
     private int quantity;
