@@ -39,7 +39,7 @@ public class Order {
     @Column(nullable = false, columnDefinition = "NVARCHAR(500)")
     private String shippingAddress;
 
-    @Column(nullable = false, columnDefinition = "NVARCHAR(1000)")
+    @Column(columnDefinition = "NVARCHAR(1000)")
     private String shippingNote;
 
     @ManyToOne

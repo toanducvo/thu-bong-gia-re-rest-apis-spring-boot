@@ -6,15 +6,16 @@ import vn.edu.iuh.fit.se.thubonggiareapis.dto.ProductInventoryDTO;
 import vn.edu.iuh.fit.se.thubonggiareapis.service.IProductInventoryService;
 
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ProductInventoryController {
 
     @Autowired
     private IProductInventoryService productInventoryService;
 
     @GetMapping(
-            value = "/productInventory"
+            value = "/productInventory/{id}"
     )
-    public ProductInventoryDTO getProductInventoryByProductId(@RequestParam(value = "productId") Long id) {
+    public ProductInventoryDTO getProductInventoryByProductId(@PathVariable Long id) {
         return productInventoryService.getProductInventory(id);
     }
 
