@@ -1,265 +1,234 @@
 package vn.edu.iuh.fit.se.thubonggiareapis.entity;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.UUID;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "products")
-public class Product implements Serializable{
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-	
-	@Column(nullable = false)
-	private String name;
-	
-	@Column
-	private double cost;
-	
-	@Column
-	private String description;
-	
-	@Column
-	private String origin;
-	
-	@Column
-	private String brand;
-	
-	@Column
-	private int rate;
-	
-	@Column
-	private String category;
-	
-	@Column
-	private String material;
-	
-	@Column
-	private double weight;
-	
-	@Column
-	private double height;
-	
-	@Column
-	private double width;
-	
-	@Column
-	private final String measuredUnit = "cm";
-	
-	@Column
-	private String image;
-	
-	@OneToMany(mappedBy = "product")
-	private List<CartDetail> cartDetails = new ArrayList<CartDetail>();
-	
-	@OneToMany(mappedBy = "product")
-	private List<OrderDetail> orderDetails = new ArrayList<OrderDetail>();
+public class Product implements Serializable {
 
-	@OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
-	private ProductInventory productInventory;
+    @Column
+    private final String measuredUnit = "cm";
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @Column(nullable = false, columnDefinition = "NVARCHAR(255)")
+    private String name;
+    @Column
+    private double cost;
+    @Column(columnDefinition = "NVARCHAR(500)")
+    private String description;
+    @Column(columnDefinition = "NVARCHAR(255)")
+    private String origin;
+    @Column(columnDefinition = "NVARCHAR(255)")
+    private String brand;
+    @Column
+    private int rate;
+    @Column(unique = true, columnDefinition = "NVARCHAR(255)")
+    private String category;
+    @Column(columnDefinition = "NVARCHAR(255)")
+    private String material;
+    @Column
+    private double weight;
+    @Column
+    private double height;
+    @Column
+    private double width;
+    @Column
+    private String image;
 
-	public Product() {
-		super();
-	}
+    @OneToMany(mappedBy = "product")
+    private List<CartDetail> cartDetails = new ArrayList<>();
 
-	public Product(long id) {
-		super();
-		this.id = id;
-	}
+    @OneToMany(mappedBy = "product")
+    private List<OrderDetail> orderDetails = new ArrayList<>();
 
-	public Product(String name, double cost, String description, String origin, String brand, int rate, String category,
-			String material, double weight, double height, double width, String image) {
-		super();
-		this.name = name;
-		this.cost = cost;
-		this.description = description;
-		this.origin = origin;
-		this.brand = brand;
-		this.rate = rate;
-		this.category = category;
-		this.material = material;
-		this.weight = weight;
-		this.height = height;
-		this.width = width;
-		this.image = image;
-	}
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private ProductInventory productInventory;
 
-	public Product(String name, double cost, String description, String origin, String brand, int rate, String category,
-			String material, double weight, double height, double width, String image,
-			ProductInventory productInventory) {
-		super();
-		this.name = name;
-		this.cost = cost;
-		this.description = description;
-		this.origin = origin;
-		this.brand = brand;
-		this.rate = rate;
-		this.category = category;
-		this.material = material;
-		this.weight = weight;
-		this.height = height;
-		this.width = width;
-		this.image = image;
-		this.productInventory = productInventory;
-	}
+    public Product() {
+        super();
+    }
 
-	public String getName() {
-		return name;
-	}
+    public Product(long id) {
+        super();
+        this.id = id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public Product(String name, double cost, String description, String origin, String brand, int rate, String category,
+                   String material, double weight, double height, double width, String image) {
+        super();
+        this.name = name;
+        this.cost = cost;
+        this.description = description;
+        this.origin = origin;
+        this.brand = brand;
+        this.rate = rate;
+        this.category = category;
+        this.material = material;
+        this.weight = weight;
+        this.height = height;
+        this.width = width;
+        this.image = image;
+    }
 
-	public double getCost() {
-		return cost;
-	}
+    public Product(String name, double cost, String description, String origin, String brand, int rate, String category,
+                   String material, double weight, double height, double width, String image,
+                   ProductInventory productInventory) {
+        super();
+        this.name = name;
+        this.cost = cost;
+        this.description = description;
+        this.origin = origin;
+        this.brand = brand;
+        this.rate = rate;
+        this.category = category;
+        this.material = material;
+        this.weight = weight;
+        this.height = height;
+        this.width = width;
+        this.image = image;
+        this.productInventory = productInventory;
+    }
 
-	public void setCost(double cost) {
-		this.cost = cost;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public double getCost() {
+        return cost;
+    }
 
-	public String getOrigin() {
-		return origin;
-	}
+    public void setCost(double cost) {
+        this.cost = cost;
+    }
 
-	public void setOrigin(String origin) {
-		this.origin = origin;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public String getBrand() {
-		return brand;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public void setBrand(String brand) {
-		this.brand = brand;
-	}
+    public String getOrigin() {
+        return origin;
+    }
 
-	public int getRate() {
-		return rate;
-	}
+    public void setOrigin(String origin) {
+        this.origin = origin;
+    }
 
-	public void setRate(int rate) {
-		this.rate = rate;
-	}
+    public String getBrand() {
+        return brand;
+    }
 
-	public String getCategory() {
-		return category;
-	}
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
 
-	public void setCategory(String category) {
-		this.category = category;
-	}
+    public int getRate() {
+        return rate;
+    }
 
-	public String getMaterial() {
-		return material;
-	}
+    public void setRate(int rate) {
+        this.rate = rate;
+    }
 
-	public void setMaterial(String material) {
-		this.material = material;
-	}
+    public String getCategory() {
+        return category;
+    }
 
-	public double getWeight() {
-		return weight;
-	}
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
-	public void setWeight(double weight) {
-		this.weight = weight;
-	}
+    public String getMaterial() {
+        return material;
+    }
 
-	public double getHeight() {
-		return height;
-	}
+    public void setMaterial(String material) {
+        this.material = material;
+    }
 
-	public void setHeight(double height) {
-		this.height = height;
-	}
+    public double getWeight() {
+        return weight;
+    }
 
-	public double getWidth() {
-		return width;
-	}
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
 
-	public void setWidth(double width) {
-		this.width = width;
-	}
+    public double getHeight() {
+        return height;
+    }
 
-	public String getImage() {
-		return image;
-	}
+    public void setHeight(double height) {
+        this.height = height;
+    }
 
-	public void setImage(String image) {
-		this.image = image;
-	}
+    public double getWidth() {
+        return width;
+    }
 
-	public List<CartDetail> getCartDetails() {
-		return cartDetails;
-	}
+    public void setWidth(double width) {
+        this.width = width;
+    }
 
-	public void setCartDetails(List<CartDetail> cartDetails) {
-		this.cartDetails = cartDetails;
-	}
+    public String getImage() {
+        return image;
+    }
 
-	public List<OrderDetail> getOrderDetails() {
-		return orderDetails;
-	}
+    public void setImage(String image) {
+        this.image = image;
+    }
 
-	public void setOrderDetails(List<OrderDetail> orderDetails) {
-		this.orderDetails = orderDetails;
-	}
+    public List<CartDetail> getCartDetails() {
+        return cartDetails;
+    }
 
-	public ProductInventory getProductInventory() {
-		return productInventory;
-	}
+    public void setCartDetails(List<CartDetail> cartDetails) {
+        this.cartDetails = cartDetails;
+    }
 
-	public void setProductInventory(ProductInventory productInventory) {
-		this.productInventory = productInventory;
-	}
+    public List<OrderDetail> getOrderDetails() {
+        return orderDetails;
+    }
 
-	public long getId() {
-		return id;
-	}
+    public void setOrderDetails(List<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
+    }
 
-	public String getMeasuredUnit() {
-		return measuredUnit;
-	}
+    public ProductInventory getProductInventory() {
+        return productInventory;
+    }
 
-	@Override
-	public String toString() {
-		return "Product [id=" + id + ", name=" + name + ", cost=" + cost + ", description=" + description + ", origin="
-				+ origin + ", brand=" + brand + ", rate=" + rate + ", category=" + category + ", material=" + material
-				+ ", weight=" + weight + ", height=" + height + ", width=" + width + ", measuredUnit=" + measuredUnit
-				+ ", image=" + image + "]";
-	}
+    public void setProductInventory(ProductInventory productInventory) {
+        this.productInventory = productInventory;
+    }
 
-	
-	
-	
-	
+    public long getId() {
+        return id;
+    }
+
+    public String getMeasuredUnit() {
+        return measuredUnit;
+    }
+
+    @Override
+    public String toString() {
+        return "Product [id=" + id + ", name=" + name + ", cost=" + cost + ", description=" + description + ", origin="
+                + origin + ", brand=" + brand + ", rate=" + rate + ", category=" + category + ", material=" + material
+                + ", weight=" + weight + ", height=" + height + ", width=" + width + ", measuredUnit=" + measuredUnit
+                + ", image=" + image + "]";
+    }
+
+
 }

@@ -1,109 +1,96 @@
 package vn.edu.iuh.fit.se.thubonggiareapis.entity;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.UUID;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "productInventory")
-public class ProductInventory implements Serializable{
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-	
-	@Column(nullable = false)
-	private int quantity;
-	
-	@Column(nullable = false, updatable = false)
-	private double cost;
-	
-	@Column(nullable = false, updatable = false)
-	private LocalDateTime createdAt;
-	
-	@OneToOne
-	@MapsId
-	@JoinColumn(name = "product_id")
-	private Product product;
+public class ProductInventory implements Serializable {
 
-	public ProductInventory() {
-		super();
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
-	public ProductInventory(int quantity, double cost, LocalDateTime createdAt) {
-		super();
-		this.quantity = quantity;
-		this.cost = cost;
-		this.createdAt = createdAt;
-	}
+    @Column(nullable = false)
+    private int quantity;
 
-	public ProductInventory(long id, int quantity, double cost, LocalDateTime createdAt) {
-		super();
-		this.id = id;
-		this.quantity = quantity;
-		this.cost = cost;
-		this.createdAt = createdAt;
-	}
+    @Column(nullable = false, updatable = false)
+    private double cost;
 
-	public ProductInventory(long id) {
-		super();
-		this.id = id;
-	}
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 
-	public int getQuantity() {
-		return quantity;
-	}
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "product_id")
+    private Product product;
 
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
+    public ProductInventory() {
+        super();
+    }
 
-	public double getCost() {
-		return cost;
-	}
+    public ProductInventory(int quantity, double cost, LocalDateTime createdAt) {
+        super();
+        this.quantity = quantity;
+        this.cost = cost;
+        this.createdAt = createdAt;
+    }
 
-	public void setCost(double cost) {
-		this.cost = cost;
-	}
+    public ProductInventory(long id, int quantity, double cost, LocalDateTime createdAt) {
+        super();
+        this.id = id;
+        this.quantity = quantity;
+        this.cost = cost;
+        this.createdAt = createdAt;
+    }
 
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
-	}
+    public ProductInventory(long id) {
+        super();
+        this.id = id;
+    }
 
-	public void setCreatedAt(LocalDateTime createdAt) {
-		this.createdAt = createdAt;
-	}
+    public int getQuantity() {
+        return quantity;
+    }
 
-	public Product getProduct() {
-		return product;
-	}
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 
-	public void setProduct(Product product) {
-		this.product = product;
-	}
+    public double getCost() {
+        return cost;
+    }
 
-	public long getId() {
-		return id;
-	}
+    public void setCost(double cost) {
+        this.cost = cost;
+    }
 
-	@Override
-	public String toString() {
-		return "ProductInventory [id=" + id + ", quantity=" + quantity + ", cost=" + cost + ", createdAt=" + createdAt
-				+ "]";
-	}
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
 
-	
-	
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductInventory [id=" + id + ", quantity=" + quantity + ", cost=" + cost + ", createdAt=" + createdAt
+                + "]";
+    }
+
+
 }

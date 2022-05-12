@@ -1,139 +1,125 @@
 package vn.edu.iuh.fit.se.thubonggiareapis.entity;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.UUID;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "users")
 public class User {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-	
-	@Column(nullable = false)
-	private String name;
-	
-	@Column
-	private String email;
-	
-	@Column
-	private String phoneNumber;
-	
-	@Column
-	private String password;
-	
-	@OneToMany(mappedBy = "createdBy")
-	private List<Promotion> promotions = new ArrayList<Promotion>();
-	
-	@OneToMany(mappedBy = "approvedBy")
-	private List<Order> orders = new ArrayList<Order>();
 
-	public User() {
-		super();
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
-	public User(long id) {
-		super();
-		this.id = id;
-	}
+    @Column(nullable = false, columnDefinition = "NVARCHAR(255)")
+    private String name;
 
-	public User(String name, String email, String phoneNumber, String password) {
-		super();
-		this.name = name;
-		this.email = email;
-		this.phoneNumber = phoneNumber;
-		this.password = password;
-	}
+    @Column(nullable = false,unique = true, columnDefinition = "VARCHAR(50)")
+    private String email;
 
-	public User(long id, String name, String email, String phoneNumber, String password) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.email = email;
-		this.phoneNumber = phoneNumber;
-		this.password = password;
-	}
+    @Column(nullable = false, unique = true, columnDefinition = "CHAR(10)")
+    private String phoneNumber;
 
-	public String getName() {
-		return name;
-	}
+    @Column(nullable = false)
+    private String password;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    @OneToMany(mappedBy = "createdBy")
+    private List<Promotion> promotions = new ArrayList<Promotion>();
 
-	public String getEmail() {
-		return email;
-	}
+//    @OneToMany(mappedBy = "approvedBy")
+//    private List<Order> orders = new ArrayList<Order>();
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public User() {
+        super();
+    }
 
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
+    public User(long id) {
+        super();
+        this.id = id;
+    }
 
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
+    public User(String name, String email, String phoneNumber, String password) {
+        super();
+        this.name = name;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.password = password;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public User(long id, String name, String email, String phoneNumber, String password) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.password = password;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public List<Promotion> getPromotions() {
-		return promotions;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setPromotions(List<Promotion> promotions) {
-		this.promotions = promotions;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public List<Order> getOrders() {
-		return orders;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
-	}
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 
-	public long getId() {
-		return id;
-	}
-	
-	
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", email=" + email + ", phoneNumber=" + phoneNumber + ", password="
-				+ password + "]";
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	
-	
-	
-	
-	
+    public List<Promotion> getPromotions() {
+        return promotions;
+    }
+
+    public void setPromotions(List<Promotion> promotions) {
+        this.promotions = promotions;
+    }
+
+//    public List<Order> getOrders() {
+//        return orders;
+//    }
+//
+//    public void setOrders(List<Order> orders) {
+//        this.orders = orders;
+//    }
+
+    public long getId() {
+        return id;
+    }
+
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "User [id=" + id + ", name=" + name + ", email=" + email + ", phoneNumber=" + phoneNumber + ", password="
+                + password + "]";
+    }
+
+
 }
