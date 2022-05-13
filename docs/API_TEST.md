@@ -64,9 +64,15 @@
 
 ```json
 {
-  "orderDate": "",
-  "total": 0.0,
-  "subtotal": "",
-  
+  "shippingCost": 20000.0,
+  "promotionCode": null,
+  "shippingAddress": "12 Nguyễn Văn Bảo, phường 4, Quận Gò Vấp, TP.HCM",
+  "customer": 1,
+  "details": [
+    {
+      "product": 1,
+      "quantity": 2
+    }
+  ]
 }
 ```

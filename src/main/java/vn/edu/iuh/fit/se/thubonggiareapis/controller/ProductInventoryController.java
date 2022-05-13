@@ -12,9 +12,9 @@ public class ProductInventoryController {
     private IProductInventoryService productInventoryService;
 
     @GetMapping(
-            value = "/productInventory"
+            value = "/productInventory/{id}"
     )
-    public ProductInventoryDTO getProductInventoryByProductId(@RequestParam(value = "productId") Long id) {
+    public ProductInventoryDTO getProductInventoryByProductId(@PathVariable Long id) {
         return productInventoryService.getProductInventory(id);
     }
 
