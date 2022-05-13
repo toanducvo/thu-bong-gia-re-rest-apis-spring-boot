@@ -26,7 +26,7 @@ public class Product implements Serializable {
     private String brand;
     @Column
     private int rate;
-    @Column(unique = true, columnDefinition = "NVARCHAR(255)")
+    @Column(columnDefinition = "NVARCHAR(255)")
     private String category;
     @Column(columnDefinition = "NVARCHAR(255)")
     private String material;
