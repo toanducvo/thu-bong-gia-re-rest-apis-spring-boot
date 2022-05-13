@@ -1,6 +1,7 @@
 package vn.edu.iuh.fit.se.thubonggiareapis.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import vn.edu.iuh.fit.se.thubonggiareapis.converter.ProductConverter;
 import vn.edu.iuh.fit.se.thubonggiareapis.dto.ProductDTO;
@@ -78,6 +79,38 @@ public class ProductServiceImpl implements IProductService {
             return null;
         }
         return productConverter.toDto(product);
+    }
+
+    @Override
+    public List<ProductDTO> findProductByName(String keyword) {
+        List<ProductDTO> productDTOs = new ArrayList<ProductDTO>();
+        List<Product> products = productRepository.findByNameContaining(keyword);
+        for (Product product : products) {
+            ProductDTO productDTO = productConverter.toDto(product);
+            productDTOs.add(productDTO);
+        }
+        return productDTOs;
+    }
+
+    @Override
+    public List<ProductDTO> getProductSortByCost(String type) {
+        List<ProductDTO> productDTOs = new ArrayList<ProductDTO>();
+        List<Product> products;
+        if(type.equals("ASC"))
+            products = productRepository.findAll(Sort.by(Sort.Direction.ASC, "cost"));
+        else
+            products = productRepository.findAll(Sort.by(Sort.Direction.DESC, "cost"));
+        for (Product product : products) {
+            ProductDTO productDTO = productConverter.toDto(product);
+            productDTOs.add(productDTO);
+        }
+        return productDTOs;
+    }
+
+    @Override
+    public void updateProduct(ProductDTO productDTO) {
+        Product product = productConverter.toEntity(productDTO);
+        productRepository.save(product);
     }
 
 }
