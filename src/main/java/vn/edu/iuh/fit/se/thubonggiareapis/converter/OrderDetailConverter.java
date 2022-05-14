@@ -6,6 +6,9 @@ import vn.edu.iuh.fit.se.thubonggiareapis.entity.Order;
 import vn.edu.iuh.fit.se.thubonggiareapis.entity.OrderDetail;
 import vn.edu.iuh.fit.se.thubonggiareapis.entity.Product;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class OrderDetailConverter {
     public OrderDetailDTO toDto(OrderDetail orderDetail) {
@@ -26,5 +29,15 @@ public class OrderDetailConverter {
                 0,
                 orderDetailDTO.getQuantity() * orderDetailDTO.getCost()
         );
+    }
+
+    public List<OrderDetailDTO> toDtos(List<OrderDetail> orderDetails) {
+        List<OrderDetailDTO> orderDetailDTOS = new ArrayList<>();
+        orderDetails.forEach(
+                orderDetail -> {
+                    orderDetailDTOS.add(toDto(orderDetail));
+                }
+        );
+        return orderDetailDTOS;
     }
 }

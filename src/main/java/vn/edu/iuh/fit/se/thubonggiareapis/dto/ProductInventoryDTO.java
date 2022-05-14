@@ -12,6 +12,11 @@ public class ProductInventoryDTO extends AbstractDTO {
         super();
     }
 
+    public ProductInventoryDTO(long id, int quantity) {
+        super(id);
+        this.quantity = quantity;
+    }
+
     public ProductInventoryDTO(int quantity, double cost, LocalDateTime createdAt, Long product) {
         super();
         this.quantity = quantity;

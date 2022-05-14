@@ -14,6 +14,7 @@ public interface IProductService {
     List<ProductDTO> getProductsByIds(List<Long> ids);
 
     ProductDTO getProductById(Long productId);
+
     List<ProductDTO> findProductByName(String keyword);
 
     List<ProductDTO> getProductSortByCost(String type);

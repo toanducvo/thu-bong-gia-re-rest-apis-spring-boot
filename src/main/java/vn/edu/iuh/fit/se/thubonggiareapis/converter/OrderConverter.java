@@ -48,7 +48,7 @@ public class OrderConverter {
         orderDTO.setSubTotal(order.getSubTotal());
         orderDTO.setPromotionCode(order.getPromotion() != null ? order.getPromotion().getPromotionCode() : null);
         orderDTO.setShippingAddress(order.getShippingAddress());
-        orderDTO.setShippingNote(order.getShippingNote() != null ? order.getShippingNote() : null );
+        orderDTO.setShippingNote(order.getShippingNote() != null ? order.getShippingNote() : null);
         orderDTO.setCustomer(order.getCustomer().getId());
 
         List<OrderDetailDTO> orderDetailDTOs = new ArrayList<>();

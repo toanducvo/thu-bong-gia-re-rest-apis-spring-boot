@@ -1,8 +1,6 @@
 package vn.edu.iuh.fit.se.thubonggiareapis.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +15,7 @@ public class User {
     @Column(nullable = false, columnDefinition = "NVARCHAR(255)")
     private String name;
 
-    @Column(nullable = false,unique = true, columnDefinition = "VARCHAR(50)")
+    @Column(nullable = false, unique = true, columnDefinition = "VARCHAR(50)")
     private String email;
 
     @Column(nullable = false, unique = true, columnDefinition = "CHAR(10)")

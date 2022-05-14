@@ -2,7 +2,6 @@ package vn.edu.iuh.fit.se.thubonggiareapis.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import vn.edu.iuh.fit.se.thubonggiareapis.converter.OrderConverter;
 import vn.edu.iuh.fit.se.thubonggiareapis.converter.OrderDetailConverter;
 import vn.edu.iuh.fit.se.thubonggiareapis.converter.ProductConverter;
 import vn.edu.iuh.fit.se.thubonggiareapis.dto.OrderDetailDTO;
@@ -30,9 +29,6 @@ public class OrderDetailServiceImpl implements IOrderDetailService {
     @Autowired
     private ProductConverter productConverter;
 
-    @Autowired
-    private OrderConverter orderConverter;
-
     @Override
     public Double addOrderDetail(Order order, List<OrderDetailDTO> detailDTO) {
         double totalPrice = 0.0;
@@ -40,7 +36,7 @@ public class OrderDetailServiceImpl implements IOrderDetailService {
         List<OrderDetail> orderDetails = new ArrayList<>();
 
         // For each order detail from payload
-        for (OrderDetailDTO orderDetailDTO: detailDTO) {
+        for (OrderDetailDTO orderDetailDTO : detailDTO) {
             // Convert to Order Detail entity
             OrderDetail detail = orderDetailConverter.toEntity(orderDetailDTO);
 
@@ -69,19 +65,7 @@ public class OrderDetailServiceImpl implements IOrderDetailService {
 
     @Override
     public List<OrderDetailDTO> getOrderDetailByOrderId(Long orderId) {
-        // Initial a list of Order detail DTO
-        List<OrderDetailDTO> orderDetaiDto = new ArrayList<>();
-
-        // Initial a list of Order detail entity
-        List<OrderDetail> result = orderDetailRepository.findAllByOrder(orderId);
-
-        // each order detail entity from list
-        for (OrderDetail orderDetail: result) {
-            // convert to Order detail DTO
-            orderDetaiDto.add(orderDetailConverter.toDto(orderDetail));
-        }
-
-        // return list of Order detail DTO
-        return orderDetaiDto;
+        List<OrderDetail> orderDetails = orderDetailRepository.findOrderDetailByOrder_Id(orderId);
+        return orderDetailConverter.toDtos(orderDetails);
     }
 }
