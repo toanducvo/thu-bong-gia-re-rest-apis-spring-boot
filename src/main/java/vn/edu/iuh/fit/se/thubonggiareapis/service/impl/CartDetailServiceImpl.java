@@ -33,7 +33,7 @@ public class CartDetailServiceImpl implements ICartDetailService {
             boolean isExisted = cartDetailRepository.existsById(new CartDetailPK(cartDetailDTO.getCart(), cartDetailDTO.getProduct()));
             if (isExisted) {
                 CartDetail cartDetail = cartDetailRepository.getById(new CartDetailPK(cartDetailDTO.getCart(), cartDetailDTO.getProduct()));
-                cartDetail.setQuantity(cartDetailDTO.getQuantity());
+                cartDetail.setQuantity(cartDetail.getQuantity() + cartDetailDTO.getQuantity());
                 cartDetail.setTotalLine(cartDetail.getQuantity() * cartDetail.getCost());
                 cartDetailRepository.save(cartDetail);
                 return true;
