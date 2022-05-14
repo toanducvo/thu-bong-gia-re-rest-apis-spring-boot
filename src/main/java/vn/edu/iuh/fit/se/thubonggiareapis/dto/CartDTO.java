@@ -58,6 +58,11 @@ public class CartDTO {
 
     @Override
     public String toString() {
-        return "CartDTO [token=" + token + ", createdAt=" + createdAt + ", expiredAt=" + expiredAt + "]";
+        return "CartDTO{" +
+                "token='" + token + '\'' +
+                ", createdAt=" + createdAt +
+                ", expiredAt=" + expiredAt +
+                ", cartDetails=" + cartDetails +
+                '}';
     }
 }

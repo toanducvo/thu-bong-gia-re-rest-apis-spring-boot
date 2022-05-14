@@ -15,6 +15,8 @@ import vn.edu.iuh.fit.se.thubonggiareapis.service.ICartDetailService;
 import vn.edu.iuh.fit.se.thubonggiareapis.service.ICartService;
 import vn.edu.iuh.fit.se.thubonggiareapis.service.IProductService;
 
+import java.util.List;
+
 @Service
 public class CartDetailServiceImpl implements ICartDetailService {
 
@@ -24,11 +26,11 @@ public class CartDetailServiceImpl implements ICartDetailService {
     @Autowired
     private CartDetailConverter cartDetailConverter;
 
-    @Autowired
-    private CartConverter cartConverter;
-
-    @Autowired
-    private ICartService cartService;
+//    @Autowired
+//    private CartConverter cartConverter;
+//
+//    @Autowired
+//    private ICartService cartService;
 
     @Autowired
     private IProductService productService;
@@ -47,15 +49,21 @@ public class CartDetailServiceImpl implements ICartDetailService {
     @Transactional
     public void deleteProductWithToken(String token, long productId) {
 
-        Cart cart = cartConverter.toEntity(
-                cartService.getCartByToken(token)
-        );
-        Product product = productConverter.toEntity(
-          productService.getProductById(productId)
-        );
-
-        System.out.println(cart);
-        System.out.println(product);
+//        Cart cart = cartConverter.toEntity(
+//                cartService.getCartByToken(token)
+//        );
+//        Product product = productConverter.toEntity(
+//          productService.getProductById(productId)
+//        );
+//
+//        System.out.println(cart);
+//        System.out.println(product);
 //        cartDetailRepository.deleteByCartAndProduct(cart, product);
+    }
+
+    @Override
+    public List<CartDetailDTO> getCartDetailsByToken(String token) {
+        List<CartDetail> cartDetails = cartDetailRepository.findCartDetailByCartToken(token);
+        return cartDetailConverter.toDtos(cartDetails);
     }
 }

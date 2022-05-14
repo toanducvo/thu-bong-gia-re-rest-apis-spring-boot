@@ -6,6 +6,9 @@ import vn.edu.iuh.fit.se.thubonggiareapis.entity.Cart;
 import vn.edu.iuh.fit.se.thubonggiareapis.entity.CartDetail;
 import vn.edu.iuh.fit.se.thubonggiareapis.entity.Product;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class CartDetailConverter {
     public CartDetail toEntity(CartDetailDTO cartDetailDTO) {
@@ -25,5 +28,13 @@ public class CartDetailConverter {
                 cartDetail.getCost(),
                 cartDetail.getQuantity() * cartDetail.getCost()
         );
+    }
+
+    public List<CartDetailDTO> toDtos(List<CartDetail> cartDetails) {
+        List<CartDetailDTO> cartDetailDTOS = new ArrayList<>();
+        cartDetails.forEach(cartDetail -> {
+            cartDetailDTOS.add(toDto(cartDetail));
+        });
+        return cartDetailDTOS;
     }
 }

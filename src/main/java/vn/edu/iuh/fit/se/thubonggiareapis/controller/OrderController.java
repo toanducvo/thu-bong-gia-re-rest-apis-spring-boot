@@ -8,6 +8,7 @@ import vn.edu.iuh.fit.se.thubonggiareapis.service.IPromotionService;
 
 @RestController
 @RequestMapping("/orders")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class OrderController {
 
     @Autowired

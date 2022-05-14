@@ -6,7 +6,9 @@ import vn.edu.iuh.fit.se.thubonggiareapis.converter.CartConverter;
 import vn.edu.iuh.fit.se.thubonggiareapis.converter.CartDetailConverter;
 import vn.edu.iuh.fit.se.thubonggiareapis.dto.CartDTO;
 import vn.edu.iuh.fit.se.thubonggiareapis.entity.Cart;
+import vn.edu.iuh.fit.se.thubonggiareapis.entity.CartDetail;
 import vn.edu.iuh.fit.se.thubonggiareapis.repository.CartRepository;
+import vn.edu.iuh.fit.se.thubonggiareapis.service.ICartDetailService;
 import vn.edu.iuh.fit.se.thubonggiareapis.service.ICartService;
 
 import java.util.Objects;
@@ -18,6 +20,12 @@ public class CartServiceImpl implements ICartService {
 
     @Autowired
     private CartConverter cartConverter;
+
+    @Autowired
+    private ICartDetailService cartDetailService;
+
+    @Autowired
+    private CartDetailConverter cartDetailConverter;
 
     @Override
     public void createCart(CartDTO cartDTO) {
@@ -31,6 +39,9 @@ public class CartServiceImpl implements ICartService {
         if (Objects.isNull(cart)){
             return null;
         }
-        return cartConverter.toDto(cart);
+        CartDTO cartDTO = cartConverter.toDto(cart);
+        cartDTO.setCartDetails(cartDetailService.getCartDetailsByToken(token));
+        System.out.println(cartDTO);
+        return cartDTO;
     }
 }

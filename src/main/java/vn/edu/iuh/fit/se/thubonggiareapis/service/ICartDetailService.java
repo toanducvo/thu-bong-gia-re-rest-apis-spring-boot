@@ -11,4 +11,6 @@ public interface ICartDetailService {
     void addProductsToCart(CartDetailDTO cartDetailDTO);
 
     void deleteProductWithToken(String token, long productId);
+
+    List<CartDetailDTO> getCartDetailsByToken(String token);
 }
