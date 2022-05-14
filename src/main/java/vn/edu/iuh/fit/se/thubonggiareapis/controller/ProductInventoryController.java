@@ -6,19 +6,25 @@ import vn.edu.iuh.fit.se.thubonggiareapis.dto.ProductInventoryDTO;
 import vn.edu.iuh.fit.se.thubonggiareapis.service.IProductInventoryService;
 
 @RestController
+@RequestMapping(value = {
+        "/productInventory"
+})
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ProductInventoryController {
 
     @Autowired
     private IProductInventoryService productInventoryService;
 
     @GetMapping(
-            value = "/productInventory/{id}"
+            value = "/{id}"
     )
     public ProductInventoryDTO getProductInventoryByProductId(@PathVariable Long id) {
         return productInventoryService.getProductInventory(id);
     }
 
-    @PutMapping(value = "/productInventory", consumes = {
+    @PutMapping(value = {
+            "", "/"
+    }, consumes = {
             "application/x-www-form-urlencoded",
             "application/json"
     })

@@ -7,17 +7,19 @@ import vn.edu.iuh.fit.se.thubonggiareapis.dto.PromotionDTO;
 import vn.edu.iuh.fit.se.thubonggiareapis.service.IPromotionService;
 
 @RestController
+@RequestMapping(value = "/promotions")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PromotionController {
 
     @Autowired
     private IPromotionService promotionService;
 
-    @PostMapping(value = "/promotions", consumes = MediaType.ALL_VALUE)
+    @PostMapping(value = {"", "/"}, consumes = MediaType.ALL_VALUE)
     public PromotionDTO addPromotion(@RequestBody PromotionDTO model) {
         return promotionService.addPromotion(model);
     }
 
-    @GetMapping("/promotions/{promotionId}")
+    @GetMapping("/{promotionId}")
     public PromotionDTO getPromotion(@PathVariable long promotionId) {
         return promotionService.getPromotion(promotionId);
     }

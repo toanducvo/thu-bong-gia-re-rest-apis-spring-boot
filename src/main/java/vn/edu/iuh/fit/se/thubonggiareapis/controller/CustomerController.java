@@ -7,6 +7,7 @@ import vn.edu.iuh.fit.se.thubonggiareapis.service.ICustomerService;
 
 @RestController
 @RequestMapping("/customers")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CustomerController {
     @Autowired
     private ICustomerService customerService;
