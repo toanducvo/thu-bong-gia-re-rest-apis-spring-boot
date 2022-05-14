@@ -23,6 +23,7 @@ public class CartDetailConverter {
 
     public CartDetailDTO toDto(CartDetail cartDetail) {
         return new CartDetailDTO(
+                cartDetail.getProduct().getId(),
                 cartDetail.getCart().getToken(),
                 cartDetail.getQuantity(),
                 cartDetail.getCost(),
