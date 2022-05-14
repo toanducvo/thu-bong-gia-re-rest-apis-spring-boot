@@ -8,7 +8,6 @@ import vn.edu.iuh.fit.se.thubonggiareapis.dto.ProductDTO;
 import vn.edu.iuh.fit.se.thubonggiareapis.service.IProductService;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,8 +26,7 @@ public class ProductController {
         try {
             ProductDTO result = productService.addProduct(model);
             return new ResponseEntity<>(result, HttpStatus.CREATED);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -36,28 +34,28 @@ public class ProductController {
     @GetMapping(value = {
             "", "/"
     })
-    public ResponseEntity<List<ProductDTO>> getProducts(@RequestParam(name = "id", required = false) Optional<List<Long>> ids, @RequestParam(name = "sortBy", required = false) Optional<String> sortBy, @RequestParam(name = "sort", required = false) Optional<String> sort, @RequestParam(name = "name", required = false)Optional<String> name) {
+    public ResponseEntity<List<ProductDTO>> getProducts(@RequestParam(name = "id", required = false) Optional<List<Long>> ids, @RequestParam(name = "sortBy", required = false) Optional<String> sortBy, @RequestParam(name = "sort", required = false) Optional<String> sort, @RequestParam(name = "name", required = false) Optional<String> name) {
         try {
             List<ProductDTO> result;
             if (ids.isPresent()) {
                 result = productService.getProductsByIds(ids.get());
-                return result.size() > 0 ?  new ResponseEntity<>(productService.getProductsByIds(ids.get()), HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                return result.size() > 0 ? new ResponseEntity<>(productService.getProductsByIds(ids.get()), HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
-            if(sortBy.isPresent()) {
-                if(!sort.isPresent()) {
+            if (sortBy.isPresent()) {
+                if (!sort.isPresent()) {
                     result = productService.getProductSortByCost("ASC");
                     return new ResponseEntity<List<ProductDTO>>(result, HttpStatus.OK);
                 }
-                if(sort.get().equals("asc")) {
+                if (sort.get().equals("asc")) {
                     result = productService.getProductSortByCost("ASC");
                     return new ResponseEntity<List<ProductDTO>>(result, HttpStatus.OK);
                 }
-                if(sort.get().equals("desc")) {
+                if (sort.get().equals("desc")) {
                     result = productService.getProductSortByCost("DESC");
                     return new ResponseEntity<List<ProductDTO>>(result, HttpStatus.OK);
                 }
             }
-            if(name.isPresent()) {
+            if (name.isPresent()) {
                 result = productService.findProductByName(name.get());
                 return new ResponseEntity<List<ProductDTO>>(result, HttpStatus.OK);
             }
@@ -68,8 +66,7 @@ public class ProductController {
                 return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
             }
             return new ResponseEntity<>(productService.getProducts(), HttpStatus.OK);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -83,8 +80,7 @@ public class ProductController {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
             return new ResponseEntity<>(result, HttpStatus.OK);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

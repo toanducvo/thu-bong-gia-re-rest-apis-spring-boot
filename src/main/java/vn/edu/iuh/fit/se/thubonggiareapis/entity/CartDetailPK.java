@@ -13,6 +13,11 @@ public class CartDetailPK implements Serializable {
         super();
     }
 
+    public CartDetailPK(String cart, Long product) {
+        this.cart = cart;
+        this.product = product;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(cart, product);

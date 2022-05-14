@@ -96,7 +96,7 @@ public class ProductServiceImpl implements IProductService {
     public List<ProductDTO> getProductSortByCost(String type) {
         List<ProductDTO> productDTOs = new ArrayList<ProductDTO>();
         List<Product> products;
-        if(type.equals("ASC"))
+        if (type.equals("ASC"))
             products = productRepository.findAll(Sort.by(Sort.Direction.ASC, "cost"));
         else
             products = productRepository.findAll(Sort.by(Sort.Direction.DESC, "cost"));

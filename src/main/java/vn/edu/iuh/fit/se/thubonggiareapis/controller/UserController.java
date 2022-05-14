@@ -1,7 +1,6 @@
 package vn.edu.iuh.fit.se.thubonggiareapis.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.iuh.fit.se.thubonggiareapis.dto.UserDTO;
 import vn.edu.iuh.fit.se.thubonggiareapis.service.IUserService;

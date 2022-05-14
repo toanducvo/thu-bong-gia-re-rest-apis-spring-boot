@@ -2,8 +2,12 @@ package vn.edu.iuh.fit.se.thubonggiareapis.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import vn.edu.iuh.fit.se.thubonggiareapis.converter.*;
+import vn.edu.iuh.fit.se.thubonggiareapis.converter.CustomerConverter;
+import vn.edu.iuh.fit.se.thubonggiareapis.converter.OrderConverter;
+import vn.edu.iuh.fit.se.thubonggiareapis.converter.PromotionConverter;
 import vn.edu.iuh.fit.se.thubonggiareapis.dto.OrderDTO;
+import vn.edu.iuh.fit.se.thubonggiareapis.dto.OrderDetailDTO;
+import vn.edu.iuh.fit.se.thubonggiareapis.dto.ProductInventoryDTO;
 import vn.edu.iuh.fit.se.thubonggiareapis.entity.Order;
 import vn.edu.iuh.fit.se.thubonggiareapis.repository.OrderRepository;
 import vn.edu.iuh.fit.se.thubonggiareapis.service.*;
@@ -33,17 +37,10 @@ public class OrderServiceImpl implements IOrderService {
     private CustomerConverter customerConverter;
 
     @Autowired
-    private IProductService productService;
-
-    @Autowired
-    private ProductConverter productConverter;
-
-    @Autowired
     private IOrderDetailService orderDetailService;
 
-
     @Autowired
-    private OrderDetailConverter orderDetailConverter;
+    private IProductInventoryService productInventoryService;
 
     @Override
     public List<OrderDTO> getAllOrders() {
@@ -70,17 +67,15 @@ public class OrderServiceImpl implements IOrderService {
 
         order.setPromotion(
                 orderDTO.getPromotionCode() == null ? null :
-                promotionConverter.toEntity(
-                        promotionService.getPromotionByCode(orderDTO.getPromotionCode())
-                ));
+                        promotionConverter.toEntity(
+                                promotionService.getPromotionByCode(orderDTO.getPromotionCode())
+                        ));
 
         order.setCustomer(
                 customerConverter.toEntity(
                         customerService.getCustomer(orderDTO.getCustomer())
                 )
         );
-
-        System.out.println(order.toString());
 
         orderRepository.save(order);
 
@@ -94,15 +89,16 @@ public class OrderServiceImpl implements IOrderService {
         }
 
         orderRepository.save(order);
-//        List<OrderDetail> orderDetails = new ArrayList<>();
-//        List<OrderDetailDTO> orderDetailDTOS = orderDetailService.getOrderDetailByOrderId(order.getId());
-//
-//        for (OrderDetailDTO orderDetailDTO : orderDetailDTOS) {
-//            orderDetails.add(orderDetailConverter.toEntity(orderDetailDTO));
-//        }
-//        order.setOrderDetails(orderDetails);
 
-        return orderConverter.toDto(order);
+        orderDTO.getDetails().forEach(
+                orderDetailDTO -> productInventoryService.updateProductInventory(new ProductInventoryDTO(orderDetailDTO.getProduct(), -orderDetailDTO.getQuantity()))
+        );
+
+        List<OrderDetailDTO> orderDetailDTOs = orderDetailService.getOrderDetailByOrderId(order.getId());
+        OrderDTO dto = orderConverter.toDto(order);
+        dto.setDetails(orderDetailDTOs);
+
+        return dto;
     }
 
 }
