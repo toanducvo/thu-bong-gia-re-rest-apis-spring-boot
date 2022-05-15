@@ -11,6 +11,7 @@ import vn.edu.iuh.fit.se.thubonggiareapis.entity.OrderDetail;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class OrderConverter {
@@ -31,7 +32,7 @@ public class OrderConverter {
         order.setShippingCost(0);
         order.setSubTotal(0);
         order.setShippingAddress(orderDTO.getShippingAddress());
-        order.setShippingNote(order.getShippingNote() != null ? order.getShippingNote() : null);
+        order.setShippingNote(Objects.isNull(orderDTO.getShippingNote()) || orderDTO.getShippingNote().isBlank() ? null : orderDTO.getShippingNote());
         order.setCustomer(new Customer(orderDTO.getCustomer()));
         order.setOrderDetails(new ArrayList<>());
 
