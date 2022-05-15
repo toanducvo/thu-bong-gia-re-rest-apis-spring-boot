@@ -11,7 +11,7 @@
     <groupId>vn.edu.iuh.fit.se</groupId>
     <artifactId>thu-bong-gia-re-rest-apis-spring-boot</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>thu-bong-gia-re-rest-apis-spring-boot</name>
     <description>thu-bong-gia-re-rest-apis-spring-boot</description>
     <properties>
