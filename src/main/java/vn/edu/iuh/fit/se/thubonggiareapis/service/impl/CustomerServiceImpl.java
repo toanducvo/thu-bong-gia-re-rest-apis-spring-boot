@@ -8,6 +8,8 @@ import vn.edu.iuh.fit.se.thubonggiareapis.entity.Customer;
 import vn.edu.iuh.fit.se.thubonggiareapis.repository.CustomerRepository;
 import vn.edu.iuh.fit.se.thubonggiareapis.service.ICustomerService;
 
+import java.util.Objects;
+
 @Service
 public class CustomerServiceImpl implements ICustomerService {
 
@@ -20,15 +22,26 @@ public class CustomerServiceImpl implements ICustomerService {
     @Override
     public CustomerDTO getCustomer(long id) {
         Customer customer = customerRepository.getById(id);
-        CustomerDTO customerDTO = customerConverter.toDto(customer);
-        return customerDTO;
+        return customerConverter.toDto(customer);
     }
 
     @Override
     public CustomerDTO addCustomer(CustomerDTO customerDTO) {
-        Customer customer = customerConverter.toEntity(customerDTO);
-        customer = customerRepository.save(customer);
-        return customerConverter.toDto(customer);
+        Customer result = customerRepository
+                .findByEmail(customerDTO.getEmail())
+                .orElse(
+                        customerRepository
+                                .findByPhoneNumber(customerDTO.getPhoneNumber())
+                                .orElse(null)
+                );
+
+        if (Objects.isNull(result)) {
+            Customer customer = customerConverter.toEntity(customerDTO);
+            customer = customerRepository.save(customer);
+            return customerConverter.toDto(customer);
+        }
+
+        return customerConverter.toDto(result);
     }
 
 }

@@ -24,7 +24,8 @@ public class CustomerController {
             "application/json",
             "application/x-www-form-urlencoded"
     })
-    public CustomerDTO addCustomer(@RequestBody CustomerDTO model) {
-        return customerService.addCustomer(model);
+    public CustomerDTO addCustomer(@RequestBody CustomerDTO customerDTO) {
+
+        return customerService.addCustomer(customerDTO);
     }
 }
