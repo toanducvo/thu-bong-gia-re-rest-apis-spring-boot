@@ -70,6 +70,22 @@ public class CartController {
         }
     }
 
+    @DeleteMapping(value = {
+            "detail/{token}",
+            "detail/{token}/"
+    })
+    public ResponseEntity<HashMap<String, Object>> deleteAllItemInCart (@PathVariable String token){
+        try {
+            cartDetailService.deleteAllProductsByToken(token);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
     @GetMapping(value = {"{token}", "/{token}"})
     public ResponseEntity<CartDTO> getCartByToken(@PathVariable String token) {
         try {
