@@ -58,16 +58,17 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public void updateUser(UserDTO userDTO) {
-        User user = userConverter.toEntity(userDTO);
-        userRepository.save(user);
-
+        if (userRepository.existsById(userDTO.getId())) {
+            User user = userConverter.toEntity(userDTO);
+            user.setPassword(passwordService.passwordEncoder().encode(user.getPassword()));
+            userRepository.save(user);
+        }
     }
 
     @Override
     public void deleteUser(long id) {
-        userRepository.deleteById(id);
-
+        if (userRepository.existsById(id)) {
+            userRepository.deleteById(id);
+        }
     }
-
-
 }
