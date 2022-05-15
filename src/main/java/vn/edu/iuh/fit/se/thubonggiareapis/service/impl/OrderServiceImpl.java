@@ -9,6 +9,7 @@ import vn.edu.iuh.fit.se.thubonggiareapis.converter.PromotionConverter;
 import vn.edu.iuh.fit.se.thubonggiareapis.dto.OrderDTO;
 import vn.edu.iuh.fit.se.thubonggiareapis.dto.OrderDetailDTO;
 import vn.edu.iuh.fit.se.thubonggiareapis.dto.ProductInventoryDTO;
+import vn.edu.iuh.fit.se.thubonggiareapis.dto.PromotionDTO;
 import vn.edu.iuh.fit.se.thubonggiareapis.entity.Order;
 import vn.edu.iuh.fit.se.thubonggiareapis.repository.OrderRepository;
 import vn.edu.iuh.fit.se.thubonggiareapis.service.*;
@@ -46,6 +47,9 @@ public class OrderServiceImpl implements IOrderService {
     @Autowired
     private IProductInventoryService productInventoryService;
 
+    @Autowired
+    private ICartDetailService cartDetailService;
+
     @Override
     public List<OrderDTO> getAllOrders() {
         List<OrderDTO> orders = new ArrayList<>();
@@ -71,10 +75,12 @@ public class OrderServiceImpl implements IOrderService {
 
         order.setShippingCost(Double.parseDouble(Objects.requireNonNull(env.getProperty("order.settings.default.shippingcost"))));
 
+        PromotionDTO promotionDTO = promotionService.getPromotionByCode(orderDTO.getPromotionCode());
+
         order.setPromotion(
                 orderDTO.getPromotionCode() == null ? null :
                         promotionConverter.toEntity(
-                                promotionService.getPromotionByCode(orderDTO.getPromotionCode())
+                                promotionDTO
                         ));
 
         order.setCustomer(
@@ -92,6 +98,9 @@ public class OrderServiceImpl implements IOrderService {
         if (order.getPromotion() != null) {
             order.setDiscount(order.getPromotion().getDeducted());
             order.setTotal(order.getTotal() * (1 - order.getDiscount()));
+
+            promotionDTO.setLimit(promotionDTO.getLimit() - 1);
+            promotionService.updatePromotion(promotionDTO);
         }
 
         orderRepository.save(order);
