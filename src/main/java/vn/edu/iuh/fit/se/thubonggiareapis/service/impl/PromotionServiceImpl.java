@@ -10,6 +10,7 @@ import vn.edu.iuh.fit.se.thubonggiareapis.repository.PromotionRepository;
 import vn.edu.iuh.fit.se.thubonggiareapis.repository.UserRepository;
 import vn.edu.iuh.fit.se.thubonggiareapis.service.IPromotionService;
 
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -57,5 +58,12 @@ public class PromotionServiceImpl implements IPromotionService {
         }
         return promotionConverter.toDto(promotion);
     }
+
+    @Override
+    public List<PromotionDTO> getAllPromotions() {
+        List<Promotion> promotions = promotionRepository.findAll();
+        return promotionConverter.toDtos(promotions);
+    }
+
 
 }

@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import vn.edu.iuh.fit.se.thubonggiareapis.dto.PromotionDTO;
 import vn.edu.iuh.fit.se.thubonggiareapis.service.IPromotionService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/promotions")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -13,6 +15,13 @@ public class PromotionController {
 
     @Autowired
     private IPromotionService promotionService;
+
+    @GetMapping(value = {
+            "", "/"
+    })
+    public List<PromotionDTO> getPromotions() {
+        return promotionService.getAllPromotions();
+    }
 
     @PostMapping(value = {"", "/"}, consumes = MediaType.ALL_VALUE)
     public PromotionDTO addPromotion(@RequestBody PromotionDTO model) {
