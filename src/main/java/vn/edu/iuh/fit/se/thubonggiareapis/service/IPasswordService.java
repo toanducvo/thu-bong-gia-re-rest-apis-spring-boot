@@ -9,5 +9,5 @@ public interface IPasswordService {
     @Bean
     PasswordEncoder passwordEncoder();
 
-    boolean checkPassword(String password, String encryptedPassword);
+    boolean checkPassword(String password, String encrypted);
 }

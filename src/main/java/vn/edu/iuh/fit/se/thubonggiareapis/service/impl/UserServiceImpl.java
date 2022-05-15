@@ -71,4 +71,13 @@ public class UserServiceImpl implements IUserService {
             userRepository.deleteById(id);
         }
     }
+
+    @Override
+    public UserDTO getUserByEmail(String email) {
+        User user = userRepository.findUserByEmail(email).orElse(null);
+        if (Objects.isNull(user)) {
+            return null;
+        }
+        return userConverter.toDto(user);
+    }
 }
