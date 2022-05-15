@@ -1,17 +1,20 @@
 package vn.edu.iuh.fit.se.thubonggiareapis.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.iuh.fit.se.thubonggiareapis.dto.UserDTO;
 import vn.edu.iuh.fit.se.thubonggiareapis.service.IUserService;
+import vn.edu.iuh.fit.se.thubonggiareapis.util.HashMapConverter;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
 @RequestMapping("/users")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UserController {
-
     @Autowired
     private IUserService userService;
 
@@ -21,8 +24,16 @@ public class UserController {
             "application/json",
             "application/x-www-form-urlencoded"
     })
-    public UserDTO addUser(@RequestBody UserDTO model) {
-        return userService.addUser(model);
+    public ResponseEntity<HashMap<String, Object>> addUser(@RequestBody UserDTO model) {
+        try {
+            UserDTO user = userService.addUser(model);
+            HashMap<String, Object> response = HashMapConverter.toHashMap(user, UserDTO.class);
+            response.remove("password");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 
@@ -34,8 +45,19 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    public UserDTO getUser(@PathVariable long userId) {
-        return userService.getUser(userId);
+    public ResponseEntity<HashMap<String, Object>> getUser(@PathVariable long userId) {
+        try {
+            UserDTO user = userService.getUser(userId);
+            if (user == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            HashMap<String, Object> response = HashMapConverter.toHashMap(user, UserDTO.class);
+            response.remove("password");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PutMapping(value = {
