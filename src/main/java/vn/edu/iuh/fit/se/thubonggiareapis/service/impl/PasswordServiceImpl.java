@@ -16,7 +16,7 @@ public class PasswordServiceImpl implements IPasswordService {
     }
 
     @Override
-    public boolean checkPassword(String password, String encryptedPassword) {
-        return false;
+    public boolean checkPassword(String rawPassword, String encryptedPassword) {
+        return new BCryptPasswordEncoder().matches(rawPassword, encryptedPassword);
     }
 }
