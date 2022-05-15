@@ -4,6 +4,9 @@ import org.springframework.stereotype.Component;
 import vn.edu.iuh.fit.se.thubonggiareapis.dto.PromotionDTO;
 import vn.edu.iuh.fit.se.thubonggiareapis.entity.Promotion;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class PromotionConverter {
     public Promotion toEntity(PromotionDTO promotionDTO) {
@@ -37,6 +40,14 @@ public class PromotionConverter {
         promotionDTO.setPromotionCode(promotion.getPromotionCode());
 
         return promotionDTO;
+    }
+
+    public List<PromotionDTO> toDtos(List<Promotion> promotions) {
+        List<PromotionDTO> promotionDTOs = new ArrayList<>();
+        for (Promotion promotion : promotions) {
+            promotionDTOs.add(this.toDto(promotion));
+        }
+        return promotionDTOs;
     }
 
 }
