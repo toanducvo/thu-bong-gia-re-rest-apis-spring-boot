@@ -118,4 +118,9 @@ public class ProductServiceImpl implements IProductService {
         return productRepository.getCategories();
     }
 
+    @Override
+    public List<ProductDTO> getProductsByCategory(String category) {
+        return productConverter.toDtos(productRepository.findAllByCategory(category));
+    }
+
 }

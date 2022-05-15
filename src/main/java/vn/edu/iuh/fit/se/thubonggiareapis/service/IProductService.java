@@ -22,4 +22,6 @@ public interface IProductService {
     void updateProduct(ProductDTO productDTO);
 
     List<String> getCategories();
+
+    List<ProductDTO> getProductsByCategory(String category);
 }
