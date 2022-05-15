@@ -31,8 +31,7 @@ public class UserController {
             HashMap<String, Object> response = HashMapConverter.toHashMap(user, UserDTO.class);
             response.remove("password");
             return new ResponseEntity<>(response, HttpStatus.OK);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -52,8 +51,7 @@ public class UserController {
                 response.add(userResponse);
             }
             return new ResponseEntity<>(response, HttpStatus.OK);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -68,8 +66,7 @@ public class UserController {
             HashMap<String, Object> response = HashMapConverter.toHashMap(user, UserDTO.class);
             response.remove("password");
             return new ResponseEntity<>(response, HttpStatus.OK);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

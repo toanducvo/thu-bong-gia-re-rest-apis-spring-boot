@@ -23,7 +23,7 @@ public class LoginController {
     private IUserService userService;
 
     @PostMapping(value = {
-            "","/"
+            "", "/"
     }, consumes = {
             "application/json",
             "application/x-www-form-urlencoded"
@@ -44,8 +44,7 @@ public class LoginController {
             }
             response.put("message", "Email or Password does not match on our server");
             return new ResponseEntity<>(response, HttpStatus.OK);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
