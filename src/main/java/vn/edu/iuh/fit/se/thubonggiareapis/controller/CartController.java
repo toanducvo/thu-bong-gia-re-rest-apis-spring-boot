@@ -74,12 +74,11 @@ public class CartController {
             "detail/{token}",
             "detail/{token}/"
     })
-    public ResponseEntity<HashMap<String, Object>> deleteAllItemInCart (@PathVariable String token){
+    public ResponseEntity<HashMap<String, Object>> deleteAllItemInCart(@PathVariable String token) {
         try {
             cartDetailService.deleteAllProductsByToken(token);
             return new ResponseEntity<>(HttpStatus.OK);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

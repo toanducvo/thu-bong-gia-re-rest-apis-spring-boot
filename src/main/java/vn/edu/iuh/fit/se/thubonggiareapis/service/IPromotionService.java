@@ -14,5 +14,6 @@ public interface IPromotionService {
     void updatePromotion(PromotionDTO promotionDTO);
 
     PromotionDTO getPromotionByCode(String promotionCode);
+
     List<PromotionDTO> getAllPromotions();
 }
