@@ -1,6 +1,7 @@
 package vn.edu.iuh.fit.se.thubonggiareapis.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import vn.edu.iuh.fit.se.thubonggiareapis.converter.CustomerConverter;
 import vn.edu.iuh.fit.se.thubonggiareapis.converter.OrderConverter;
@@ -18,6 +19,9 @@ import java.util.Objects;
 
 @Service
 public class OrderServiceImpl implements IOrderService {
+    @Autowired
+    private Environment env;
+
     @Autowired
     private OrderConverter orderConverter;
 
@@ -65,6 +69,8 @@ public class OrderServiceImpl implements IOrderService {
     public OrderDTO addOrder(OrderDTO orderDTO) {
         Order order = orderConverter.toEntity(orderDTO);
 
+        order.setShippingCost(Double.parseDouble(Objects.requireNonNull(env.getProperty("order.settings.default.shippingcost"))));
+
         order.setPromotion(
                 orderDTO.getPromotionCode() == null ? null :
                         promotionConverter.toEntity(
@@ -85,7 +91,7 @@ public class OrderServiceImpl implements IOrderService {
 
         if (order.getPromotion() != null) {
             order.setDiscount(order.getPromotion().getDeducted());
-            order.setTotal(order.getTotal() - order.getDiscount());
+            order.setTotal(order.getTotal() * (1 - order.getDiscount()));
         }
 
         orderRepository.save(order);
