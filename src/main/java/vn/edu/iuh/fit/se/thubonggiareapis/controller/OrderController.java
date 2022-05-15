@@ -37,5 +37,5 @@ public class OrderController {
     })
     public List<OrderDTO> getOrders() {
         return orderService.getAllOrders();
-    } 
+    }
 }
