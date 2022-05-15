@@ -34,13 +34,25 @@ public class ProductController {
     @GetMapping(value = {
             "", "/"
     })
-    public ResponseEntity<List<ProductDTO>> getProducts(@RequestParam(name = "id", required = false) Optional<List<Long>> ids, @RequestParam(name = "sortBy", required = false) Optional<String> sortBy, @RequestParam(name = "sort", required = false) Optional<String> sort, @RequestParam(name = "name", required = false) Optional<String> name) {
+    public ResponseEntity<List<ProductDTO>> getProducts(
+            @RequestParam(name = "id", required = false) Optional<List<Long>> ids,
+            @RequestParam(name = "sortBy", required = false) Optional<String> sortBy,
+            @RequestParam(name = "sort", required = false) Optional<String> sort,
+            @RequestParam(name = "name", required = false) Optional<String> name,
+            @RequestParam(name = "category", required = false) Optional<String> category) {
         try {
             List<ProductDTO> result;
+
+            if (category.isPresent()) {
+                result = productService.getProductsByCategory(category.get());
+                return result.size() > 0 ? new ResponseEntity<>(result, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+
             if (ids.isPresent()) {
                 result = productService.getProductsByIds(ids.get());
-                return result.size() > 0 ? new ResponseEntity<>(productService.getProductsByIds(ids.get()), HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                return result.size() > 0 ? new ResponseEntity<>(result, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
+
             if (sortBy.isPresent()) {
                 if (!sort.isPresent()) {
                     result = productService.getProductSortByCost("ASC");

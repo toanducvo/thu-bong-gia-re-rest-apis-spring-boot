@@ -4,6 +4,9 @@ import org.springframework.stereotype.Component;
 import vn.edu.iuh.fit.se.thubonggiareapis.dto.ProductDTO;
 import vn.edu.iuh.fit.se.thubonggiareapis.entity.Product;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class ProductConverter {
 
@@ -52,6 +55,14 @@ public class ProductConverter {
 
 
         return productDTO;
+    }
+
+    public List<ProductDTO> toDtos(List<Product> products) {
+        List<ProductDTO> productDTOS = new ArrayList<>();
+        products.forEach(product -> {
+            productDTOS.add(this.toDto(product));
+        });
+        return productDTOS;
     }
 
 }
