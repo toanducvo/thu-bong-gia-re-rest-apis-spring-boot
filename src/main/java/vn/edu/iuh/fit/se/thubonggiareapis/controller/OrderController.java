@@ -6,6 +6,8 @@ import vn.edu.iuh.fit.se.thubonggiareapis.dto.OrderDTO;
 import vn.edu.iuh.fit.se.thubonggiareapis.service.IOrderService;
 import vn.edu.iuh.fit.se.thubonggiareapis.service.IPromotionService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/orders")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -29,4 +31,11 @@ public class OrderController {
     public OrderDTO addOrder(@RequestBody OrderDTO orderDTO) {
         return orderService.addOrder(orderDTO);
     }
+
+    @GetMapping(value = {
+            "", "/"
+    })
+    public List<OrderDTO> getOrders() {
+        return orderService.getAllOrders();
+    } 
 }
