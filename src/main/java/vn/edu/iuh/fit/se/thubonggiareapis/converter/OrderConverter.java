@@ -28,7 +28,7 @@ public class OrderConverter {
         order.setOrderDate(LocalDateTime.now());
         order.setTotal(0);
         order.setDiscount(0);
-        order.setShippingCost(orderDTO.getShippingCost());
+        order.setShippingCost(0);
         order.setSubTotal(0);
         order.setShippingAddress(orderDTO.getShippingAddress());
         order.setShippingNote(order.getShippingNote() != null ? order.getShippingNote() : null);
