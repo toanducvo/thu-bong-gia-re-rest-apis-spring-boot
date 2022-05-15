@@ -10,7 +10,9 @@ import java.util.List;
 
 @Repository
 public interface CartDetailRepository extends JpaRepository<CartDetail, CartDetailPK> {
-    void deleteByCart_TokenAndAndProduct_Id(@Param("cart_id") String cartId, @Param("product_id") Long productId);
+    void deleteByCart_TokenAndProduct_Id(@Param("cart_id") String cartId, @Param("product_id") Long productId);
+
+    void deleteAllByCart_Token(@Param("cart_id") String cartId);
 
     List<CartDetail> findCartDetailByCartToken(@Param("cart_id") String token);
 }

@@ -49,8 +49,15 @@ public class CartDetailServiceImpl implements ICartDetailService {
     @Override
     @Transactional
     public void deleteProductWithToken(String token, long productId) {
-        cartDetailRepository.deleteByCart_TokenAndAndProduct_Id(token, productId);
+        cartDetailRepository.deleteByCart_TokenAndProduct_Id(token, productId);
     }
+
+    @Override
+    @Transactional
+    public void deleteAllProductsByToken(String token) {
+        cartDetailRepository.deleteAllByCart_Token(token);
+    }
+
 
     @Override
     public List<CartDetailDTO> getCartDetailsByToken(String token) {
