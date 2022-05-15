@@ -8,6 +8,7 @@ import vn.edu.iuh.fit.se.thubonggiareapis.dto.UserDTO;
 import vn.edu.iuh.fit.se.thubonggiareapis.service.IUserService;
 import vn.edu.iuh.fit.se.thubonggiareapis.util.HashMapConverter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -40,8 +41,21 @@ public class UserController {
     @GetMapping(value = {
             "", "/"
     })
-    public List<UserDTO> getUsers() {
-        return userService.getUsers();
+    public ResponseEntity<List<HashMap<String, Object>>> getUsers() {
+        try {
+            List<UserDTO> users = userService.getUsers();
+            List<HashMap<String, Object>> response = new ArrayList<>();
+            for (UserDTO user : users) {
+                HashMap<String, Object> userResponse = HashMapConverter.toHashMap(user, UserDTO.class);
+                userResponse.remove("password");
+                userResponse.put("id", user.getId());
+                response.add(userResponse);
+            }
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/{userId}")
