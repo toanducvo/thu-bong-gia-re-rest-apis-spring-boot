@@ -93,5 +93,10 @@ public class ProductController {
         productService.updateProduct(productDTO);
     }
 
-
+    @GetMapping({
+            "/categories", "/categories"
+    })
+    public List<String> getCategories() {
+        return productService.getCategories();
+    }
 }

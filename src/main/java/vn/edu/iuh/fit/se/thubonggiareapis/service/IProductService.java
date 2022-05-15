@@ -20,4 +20,6 @@ public interface IProductService {
     List<ProductDTO> getProductSortByCost(String type);
 
     void updateProduct(ProductDTO productDTO);
+
+    List<String> getCategories();
 }

@@ -113,4 +113,9 @@ public class ProductServiceImpl implements IProductService {
         productRepository.save(product);
     }
 
+    @Override
+    public List<String> getCategories() {
+        return productRepository.getCategories();
+    }
+
 }
