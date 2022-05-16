@@ -7,6 +7,7 @@ import vn.edu.iuh.fit.se.thubonggiareapis.dto.PromotionDTO;
 import vn.edu.iuh.fit.se.thubonggiareapis.service.IPromotionService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/promotions")
@@ -37,5 +38,10 @@ public class PromotionController {
     @PutMapping(value = "/promotions", consumes = MediaType.ALL_VALUE)
     public void updatePromotion(@RequestBody PromotionDTO model) {
         promotionService.updatePromotion(model);
+    }
+
+    @GetMapping("/promotionCode")
+    public PromotionDTO getPromotionByPromotionCode(@RequestParam(name = "promotionCode", required = false) Optional<String> promotionCode) {
+        return promotionService.getPromotionByCode(promotionCode.get());
     }
 }
