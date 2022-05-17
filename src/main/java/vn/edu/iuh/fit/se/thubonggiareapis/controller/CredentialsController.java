@@ -14,7 +14,7 @@ import java.util.Objects;
 @RestController
 @RequestMapping("/creds")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class LoginController {
+public class CredentialsController {
 
     @Autowired
     private IPasswordService passwordService;
@@ -28,7 +28,7 @@ public class LoginController {
             "application/json",
             "application/x-www-form-urlencoded"
     })
-    public ResponseEntity<HashMap<String, Object>> login(@RequestBody HashMap<String, Object> creds) {
+    public ResponseEntity<HashMap<String, Object>> requestLogin(@RequestBody HashMap<String, Object> creds) {
         HashMap<String, Object> response = new HashMap<>();
         try {
             UserDTO userDTO = userService.getUserByEmail(creds.get("email").toString());
