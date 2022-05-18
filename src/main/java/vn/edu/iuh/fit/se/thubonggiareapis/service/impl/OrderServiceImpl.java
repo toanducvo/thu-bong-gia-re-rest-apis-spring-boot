@@ -14,6 +14,7 @@ import vn.edu.iuh.fit.se.thubonggiareapis.entity.Order;
 import vn.edu.iuh.fit.se.thubonggiareapis.repository.OrderRepository;
 import vn.edu.iuh.fit.se.thubonggiareapis.service.*;
 
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -114,6 +115,12 @@ public class OrderServiceImpl implements IOrderService {
         dto.setDetails(orderDetailDTOs);
 
         return dto;
+    }
+
+    @Override
+    public List<OrderDTO> getOrdersByOrderDate(int year, int month, int dayOfMonth) {
+        List<Order> orders =  orderRepository.findAllByOrderDate_YearAndOrderDate_MonthAndOrderDate_DayOfMonth(year, month, dayOfMonth);
+        return orderConverter.toDtos(orders);
     }
 
 }

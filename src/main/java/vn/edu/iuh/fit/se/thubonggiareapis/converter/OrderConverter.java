@@ -60,4 +60,12 @@ public class OrderConverter {
 
         return orderDTO;
     }
+
+    public List<OrderDTO> toDtos(List<Order> orders) {
+        List<OrderDTO> orderDTOList = new ArrayList<>();
+        orders.forEach(order -> {
+            orderDTOList.add(toDto(order));
+        });
+        return orderDTOList;
+    }
 }
