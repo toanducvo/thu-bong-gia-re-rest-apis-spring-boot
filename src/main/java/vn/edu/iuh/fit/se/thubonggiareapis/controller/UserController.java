@@ -27,11 +27,22 @@ public class UserController {
     })
     public ResponseEntity<HashMap<String, Object>> addUser(@RequestBody UserDTO model) {
         try {
+            if (model.getPassword().isEmpty())
+                throw new Exception("Password is required");
             UserDTO user = userService.addUser(model);
             HashMap<String, Object> response = HashMapConverter.toHashMap(user);
             response.remove("password");
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
+            if (e.getMessage().equals("Password is required")) {
+                HashMap<String, Object> res = new HashMap<>();
+                res.put("message", e.getMessage());
+                return new ResponseEntity<>(
+                        res,
+                        HttpStatus.BAD_REQUEST
+                );
+            }
+
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
