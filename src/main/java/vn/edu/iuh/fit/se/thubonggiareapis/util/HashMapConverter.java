@@ -1,5 +1,7 @@
 package vn.edu.iuh.fit.se.thubonggiareapis.util;
 
+import vn.edu.iuh.fit.se.thubonggiareapis.dto.OrderDTO;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,8 +24,11 @@ public abstract class HashMapConverter {
     public static List<HashMap<String, Object>> toListOf(List<?> list) {
         List<HashMap<String, Object>> listOfHashMap = new ArrayList<>();
         list.forEach(o -> {
-            HashMap<String, Object> item = toHashMap(o);
-            listOfHashMap.add(item);
+            if (o instanceof OrderDTO) {
+                HashMap<String, Object> item = toHashMap(o);
+                item.put ("id", ((OrderDTO) o).getId());
+                listOfHashMap.add(item);
+            }
         });
         return listOfHashMap;
     }
