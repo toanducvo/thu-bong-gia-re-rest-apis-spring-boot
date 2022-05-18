@@ -1,23 +1,27 @@
 package vn.edu.iuh.fit.se.thubonggiareapis.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.iuh.fit.se.thubonggiareapis.dto.OrderDTO;
 import vn.edu.iuh.fit.se.thubonggiareapis.service.IOrderService;
-import vn.edu.iuh.fit.se.thubonggiareapis.service.IPromotionService;
+import vn.edu.iuh.fit.se.thubonggiareapis.util.HashMapConverter;
 
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/orders")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class OrderController {
 
+    @Qualifier("orderServiceImpl")
     @Autowired
     private IOrderService orderService;
-
-    @Autowired
-    private IPromotionService promotionService;
 
     @GetMapping(value = "/{id}", name = "Get order by id")
     public OrderDTO getOrderById(@PathVariable Long id) {
@@ -35,7 +39,27 @@ public class OrderController {
     @GetMapping(value = {
             "", "/"
     })
-    public List<OrderDTO> getOrders() {
-        return orderService.getAllOrders();
+    public ResponseEntity<List<HashMap<String, Object>>> getOrders(
+            @RequestParam(name = "date", required = false) Optional<String> date
+    ) {
+        List<OrderDTO> orderDTOList;
+        List<HashMap<String, Object>> result;
+        try {
+            if (date.isPresent()) {
+                LocalDate localDate = LocalDate.parse(date.get());
+                orderDTOList = orderService.getOrdersByOrderDate(localDate.getYear(), localDate.getMonth().getValue(), localDate.getDayOfMonth());
+                result = HashMapConverter.toListOf(orderDTOList);
+                return new ResponseEntity<>(result, HttpStatus.OK);
+            }
+
+            orderDTOList = orderService.getAllOrders();
+            result = HashMapConverter.toListOf(orderDTOList);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 }

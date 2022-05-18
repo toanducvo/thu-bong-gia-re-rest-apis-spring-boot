@@ -28,7 +28,7 @@ public class UserController {
     public ResponseEntity<HashMap<String, Object>> addUser(@RequestBody UserDTO model) {
         try {
             UserDTO user = userService.addUser(model);
-            HashMap<String, Object> response = HashMapConverter.toHashMap(user, UserDTO.class);
+            HashMap<String, Object> response = HashMapConverter.toHashMap(user);
             response.remove("password");
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
@@ -45,7 +45,7 @@ public class UserController {
             List<UserDTO> users = userService.getUsers();
             List<HashMap<String, Object>> response = new ArrayList<>();
             for (UserDTO user : users) {
-                HashMap<String, Object> userResponse = HashMapConverter.toHashMap(user, UserDTO.class);
+                HashMap<String, Object> userResponse = HashMapConverter.toHashMap(user);
                 userResponse.remove("password");
                 userResponse.put("id", user.getId());
                 response.add(userResponse);
@@ -63,7 +63,7 @@ public class UserController {
             if (user == null) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
-            HashMap<String, Object> response = HashMapConverter.toHashMap(user, UserDTO.class);
+            HashMap<String, Object> response = HashMapConverter.toHashMap(user);
             response.remove("password");
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
