@@ -10,6 +10,7 @@ import vn.edu.iuh.fit.se.thubonggiareapis.repository.PromotionRepository;
 import vn.edu.iuh.fit.se.thubonggiareapis.repository.UserRepository;
 import vn.edu.iuh.fit.se.thubonggiareapis.service.IPromotionService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -65,5 +66,13 @@ public class PromotionServiceImpl implements IPromotionService {
         return promotionConverter.toDtos(promotions);
     }
 
+    @Override
+    public long getExpiredPromotions() {
+        return promotionRepository.countPromotionsByExpiredDateIsBefore(LocalDateTime.now());
+    }
 
+    @Override
+    public long getTotalPromotion() {
+        return promotionRepository.count();
+    }
 }
