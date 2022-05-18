@@ -1,11 +1,14 @@
 package vn.edu.iuh.fit.se.thubonggiareapis.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.iuh.fit.se.thubonggiareapis.dto.PromotionDTO;
 import vn.edu.iuh.fit.se.thubonggiareapis.service.IPromotionService;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,6 +45,25 @@ public class PromotionController {
 
     @GetMapping("/promotionCode")
     public PromotionDTO getPromotionByPromotionCode(@RequestParam(name = "promotionCode", required = false) Optional<String> promotionCode) {
-        return promotionService.getPromotionByCode(promotionCode.get());
+        return promotionCode.map(s -> promotionService.getPromotionByCode(s)).orElse(null);
+    }
+
+    @GetMapping(value = {
+            "/stats", "/stats/"
+    })
+    public ResponseEntity<HashMap<String, Object>> getStats() {
+        HashMap<String, Object> response = new HashMap<>();
+        try {
+            long expired = promotionService.getExpiredPromotions();
+            long total = promotionService.getTotalPromotion();
+
+            response.put("expiredPromotion", expired);
+            response.put("totalPromotion", total);
+            response.put("inDueDatePromotion", total - expired);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

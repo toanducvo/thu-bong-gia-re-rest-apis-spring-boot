@@ -16,4 +16,8 @@ public interface IPromotionService {
     PromotionDTO getPromotionByCode(String promotionCode);
 
     List<PromotionDTO> getAllPromotions();
+
+    long getExpiredPromotions();
+
+    long getTotalPromotion();
 }
