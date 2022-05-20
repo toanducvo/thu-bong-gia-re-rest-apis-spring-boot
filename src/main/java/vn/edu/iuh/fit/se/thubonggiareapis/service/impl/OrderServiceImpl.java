@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 public class OrderServiceImpl implements IOrderService {
@@ -132,25 +133,20 @@ public class OrderServiceImpl implements IOrderService {
     @Override
     public Double getTotalRevenueInADay(int dayOfMonth, Month month, int year) {
         try {
-            Optional<Double> result = orderRepository.totalRevenueInDay(dayOfMonth, month.getValue(),year);
-            return result.orElse(0.0);
+            return orderRepository.totalRevenueInDay(dayOfMonth, month.getValue(),year);
         }
         catch (Exception e) {
             return 0.0;
         }
-
     }
 
     @Override
     public Double getTotalRevenueInAMonth(Month month, int year) {
         try {
-            Optional<Double> result = orderRepository.totalRevenueInMonth(month.getValue(), year);
-            return result.orElse(0.0);
+            return orderRepository.totalRevenueInMonth(month.getValue(), year);
         }
         catch (Exception e) {
             return 0.0;
         }
-
-
     }
 }
