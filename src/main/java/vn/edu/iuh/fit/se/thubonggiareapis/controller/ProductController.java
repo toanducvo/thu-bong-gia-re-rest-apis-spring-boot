@@ -122,8 +122,7 @@ public class ProductController {
             response.put("totalProduct", productService.getTotalProduct());
             response.put("totalCategory", productService.getTotalCategory());
             return new ResponseEntity<>(response, HttpStatus.OK);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

@@ -18,8 +18,6 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 public class OrderServiceImpl implements IOrderService {
@@ -121,7 +119,7 @@ public class OrderServiceImpl implements IOrderService {
 
     @Override
     public List<OrderDTO> getOrdersByOrderDate(int year, int month, int dayOfMonth) {
-        List<Order> orders =  orderRepository.findAllByOrderDate_YearAndOrderDate_MonthAndOrderDate_DayOfMonth(year, month, dayOfMonth);
+        List<Order> orders = orderRepository.findAllByOrderDate_YearAndOrderDate_MonthAndOrderDate_DayOfMonth(year, month, dayOfMonth);
         return orderConverter.toDtos(orders);
     }
 
@@ -133,9 +131,8 @@ public class OrderServiceImpl implements IOrderService {
     @Override
     public Double getTotalRevenueInADay(int dayOfMonth, Month month, int year) {
         try {
-            return orderRepository.totalRevenueInDay(dayOfMonth, month.getValue(),year);
-        }
-        catch (Exception e) {
+            return orderRepository.totalRevenueInDay(dayOfMonth, month.getValue(), year);
+        } catch (Exception e) {
             return 0.0;
         }
     }
@@ -144,8 +141,7 @@ public class OrderServiceImpl implements IOrderService {
     public Double getTotalRevenueInAMonth(Month month, int year) {
         try {
             return orderRepository.totalRevenueInMonth(month.getValue(), year);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return 0.0;
         }
     }

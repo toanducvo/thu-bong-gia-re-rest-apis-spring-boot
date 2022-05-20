@@ -14,6 +14,6 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail, Long> 
 
     List<OrderDetail> findOrderDetailByOrder_Id(@Param("order_id") Long orderId);
 
-    @Query(value = "select sum(quantity) from order_details od join orders o on od.order_id = o.id where month(o.order_date) = ?1",nativeQuery = true)
+    @Query(value = "select sum(quantity) from order_details od join orders o on od.order_id = o.id where month(o.order_date) = ?1", nativeQuery = true)
     Long countTotalProductSoldInMonth(int month);
 }
