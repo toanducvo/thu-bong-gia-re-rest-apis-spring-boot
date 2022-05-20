@@ -75,4 +75,16 @@ public class PromotionServiceImpl implements IPromotionService {
     public long getTotalPromotion() {
         return promotionRepository.count();
     }
+
+    @Override
+    public List<PromotionDTO> getAllPromotionByExpiredDate(LocalDateTime now) {
+        return promotionConverter.toDtos(promotionRepository.findPromotionByExpiredDateIsLessThanEqual(now));
+    }
+
+    @Override
+    public List<PromotionDTO> getAllPromotionExpiredByLimit() {
+        return promotionConverter.toDtos(
+                promotionRepository.findPromotionByLimitEquals(0)
+        );
+    }
 }

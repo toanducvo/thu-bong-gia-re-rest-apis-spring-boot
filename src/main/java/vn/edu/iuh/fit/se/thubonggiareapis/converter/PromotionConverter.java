@@ -21,7 +21,7 @@ public class PromotionConverter {
         promotion.setDeducted(promotionDTO.getDeducted());
         promotion.setExpiredDate(promotionDTO.getExpiredDate());
         promotion.setLimit(promotionDTO.getLimit());
-        promotion.setPromotionCode(promotionDTO.getPromotionCode());
+        promotion.setPromotionCode(promotionDTO.getPromotionCode().toUpperCase());
 
         return promotion;
     }
@@ -37,7 +37,7 @@ public class PromotionConverter {
         promotionDTO.setExpiredDate(promotion.getExpiredDate());
         promotionDTO.setLimit(promotion.getLimit());
         promotionDTO.setCreatedBy(promotion.getCreatedBy().getId());
-        promotionDTO.setPromotionCode(promotion.getPromotionCode());
+        promotionDTO.setPromotionCode(promotion.getPromotionCode().toUpperCase());
 
         return promotionDTO;
     }
