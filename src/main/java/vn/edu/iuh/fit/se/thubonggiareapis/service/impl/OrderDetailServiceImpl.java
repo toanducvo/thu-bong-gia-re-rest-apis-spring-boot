@@ -11,6 +11,7 @@ import vn.edu.iuh.fit.se.thubonggiareapis.repository.OrderDetailRepository;
 import vn.edu.iuh.fit.se.thubonggiareapis.service.IOrderDetailService;
 import vn.edu.iuh.fit.se.thubonggiareapis.service.IProductService;
 
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,5 +68,10 @@ public class OrderDetailServiceImpl implements IOrderDetailService {
     public List<OrderDetailDTO> getOrderDetailByOrderId(Long orderId) {
         List<OrderDetail> orderDetails = orderDetailRepository.findOrderDetailByOrder_Id(orderId);
         return orderDetailConverter.toDtos(orderDetails);
+    }
+
+    @Override
+    public Long getTotalProductInMonth(Month month) {
+        return orderDetailRepository.countTotalProductSoldInMonth(month.getValue());
     }
 }

@@ -8,6 +8,7 @@ import vn.edu.iuh.fit.se.thubonggiareapis.dto.ProductDTO;
 import vn.edu.iuh.fit.se.thubonggiareapis.service.IProductService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -110,5 +111,20 @@ public class ProductController {
     })
     public List<String> getCategories() {
         return productService.getCategories();
+    }
+
+    @GetMapping({
+            "/stats", "/stats/"
+    })
+    public ResponseEntity<HashMap<String, Object>> getStats() {
+        HashMap<String, Object> response = new HashMap<>();
+        try {
+            response.put("totalProduct", productService.getTotalProduct());
+            response.put("totalCategory", productService.getTotalCategory());
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

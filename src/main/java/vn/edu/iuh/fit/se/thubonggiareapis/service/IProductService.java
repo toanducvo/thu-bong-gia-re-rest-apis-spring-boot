@@ -24,4 +24,8 @@ public interface IProductService {
     List<String> getCategories();
 
     List<ProductDTO> getProductsByCategory(String category);
+
+    Long getTotalProduct();
+
+    Long getTotalCategory();
 }

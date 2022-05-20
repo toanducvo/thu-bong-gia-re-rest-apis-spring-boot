@@ -5,10 +5,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.iuh.fit.se.thubonggiareapis.dto.OrderDTO;
+import vn.edu.iuh.fit.se.thubonggiareapis.service.IOrderDetailService;
 import vn.edu.iuh.fit.se.thubonggiareapis.service.IOrderService;
 import vn.edu.iuh.fit.se.thubonggiareapis.util.HashMapConverter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +22,9 @@ public class OrderController {
 
     @Autowired
     private IOrderService orderService;
+
+    @Autowired
+    private IOrderDetailService orderDetailService;
 
     @GetMapping(value = "/{id}", name = "Get order by id")
     public OrderDTO getOrderById(@PathVariable Long id) {
@@ -58,6 +63,25 @@ public class OrderController {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
 
+    @GetMapping(value = {
+            "/stats", "/stats/"
+    })
+    public ResponseEntity<HashMap<String, Object>> getStats() {
+        HashMap<String, Object> response = new HashMap<>();
+        try {
+            LocalDateTime now = LocalDateTime.now();
+            response.put("totalOrder", orderService.getTotalOrder());
+            response.put("totalProductSoldInAMonth", orderDetailService.getTotalProductInMonth(LocalDate.now().getMonth()));
+            response.put("totalRevenueInADay", orderService.getTotalRevenueInADay(now.getDayOfMonth(),now.getMonth(), now.getYear()));
+            response.put("totalRevenueInAMonth", orderService.getTotalRevenueInAMonth(now.getMonth(), now.getYear()));
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
