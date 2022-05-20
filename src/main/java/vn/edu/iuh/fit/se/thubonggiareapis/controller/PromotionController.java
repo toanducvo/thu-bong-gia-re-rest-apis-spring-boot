@@ -77,11 +77,11 @@ public class PromotionController {
             if (by.isPresent()) {
                 List<HashMap<String, Object>> listOfExpiredPromotions;
                 switch (by.get().toUpperCase()) {
-                    case "DATE" -> {
+                    case "DATE": {
                         listOfExpiredPromotions = HashMapConverter.toListOf(promotionService.getAllPromotionByExpiredDate(LocalDateTime.now()));
                         return new ResponseEntity<>(listOfExpiredPromotions,HttpStatus.OK);
                     }
-                    case "LIMIT" -> {
+                    case "LIMIT": {
                         listOfExpiredPromotions = HashMapConverter.toListOf(promotionService.getAllPromotionExpiredByLimit());
                         return new ResponseEntity<>(listOfExpiredPromotions,HttpStatus.OK);
                     }
