@@ -16,8 +16,6 @@ If you want to use another database or another username and password, you can ch
 
 To build this project, head over to the project folder by ```cd path/to/project/folder```
 
-> Make sure you have the correct database credentials in the `application.properties` file.
-
 And then run ```mvn clean package```
 
 After successfully built, type this command to run app (replace ```path/to/jar/file.jar``` by your jar file relative path)
