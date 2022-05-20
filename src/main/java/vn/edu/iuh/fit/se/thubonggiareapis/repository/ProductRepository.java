@@ -16,7 +16,4 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<String> getCategories();
 
     List<Product> findAllByCategory(@Param("category") String category);
-
-    @Query(value = "select distinct count(*) from products",nativeQuery = true)
-    Long countDistinctCategories();
 }
