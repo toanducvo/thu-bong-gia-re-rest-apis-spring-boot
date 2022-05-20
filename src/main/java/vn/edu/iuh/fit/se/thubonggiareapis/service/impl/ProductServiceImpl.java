@@ -130,7 +130,7 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public Long getTotalCategory() {
-        return productRepository.countDistinctCategories();
+        return (long) getCategories().size();
     }
 
 }
