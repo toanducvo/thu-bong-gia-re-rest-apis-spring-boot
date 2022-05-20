@@ -91,11 +91,14 @@ public class PromotionServiceImpl implements IPromotionService {
     public List<PromotionDTO> getAllPromotionInDueDate() {
         List<PromotionDTO> expiredPromotions = getAllPromotionByExpiredDate(LocalDateTime.now());
         expiredPromotions.addAll(getAllPromotionExpiredByLimit());
-        Set<PromotionDTO> setOfExpiredPromotions = new HashSet<>(expiredPromotions);
-        List<Long> ids = new ArrayList<>();
-        setOfExpiredPromotions.forEach(expiredPromotion -> {
-            ids.add(expiredPromotion.getId());
-        });
-        return promotionConverter.toDtos(promotionRepository.findPromotionsByIdNotIn(ids));
+        if (expiredPromotions.size() > 0 ) {
+            Set<PromotionDTO> setOfExpiredPromotions = new HashSet<>(expiredPromotions);
+            List<Long> ids = new ArrayList<>();
+            setOfExpiredPromotions.forEach(expiredPromotion -> {
+                ids.add(expiredPromotion.getId());
+            });
+            return promotionConverter.toDtos(promotionRepository.findPromotionsByIdNotIn(ids));
+        }
+        return getAllPromotions();
     }
 }
