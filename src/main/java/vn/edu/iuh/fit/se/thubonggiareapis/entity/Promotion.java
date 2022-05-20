@@ -13,7 +13,7 @@ public class Promotion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false, columnDefinition = "VARCHAR(30)")
+    @Column(unique = true, nullable = false, columnDefinition = "VARCHAR(30)")
     private String promotionCode; //note
 
     @ManyToOne
