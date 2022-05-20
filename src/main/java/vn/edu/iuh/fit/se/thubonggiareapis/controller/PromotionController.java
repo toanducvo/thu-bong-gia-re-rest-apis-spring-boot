@@ -102,6 +102,12 @@ public class PromotionController {
             "/in-due-date", "/in-due-date/"
     })
     public ResponseEntity<List<HashMap<String, Object>>> getInDueDatePromotions() {
-        return null;
+
+        try {
+            return new ResponseEntity<>(HashMapConverter.toListOf(promotionService.getAllPromotionInDueDate()), HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

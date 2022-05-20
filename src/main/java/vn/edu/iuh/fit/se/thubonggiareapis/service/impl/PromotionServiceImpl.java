@@ -11,8 +11,7 @@ import vn.edu.iuh.fit.se.thubonggiareapis.repository.UserRepository;
 import vn.edu.iuh.fit.se.thubonggiareapis.service.IPromotionService;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 public class PromotionServiceImpl implements IPromotionService {
@@ -86,5 +85,17 @@ public class PromotionServiceImpl implements IPromotionService {
         return promotionConverter.toDtos(
                 promotionRepository.findPromotionByLimitEquals(0)
         );
+    }
+
+    @Override
+    public List<PromotionDTO> getAllPromotionInDueDate() {
+        List<PromotionDTO> expiredPromotions = getAllPromotionByExpiredDate(LocalDateTime.now());
+        expiredPromotions.addAll(getAllPromotionExpiredByLimit());
+        Set<PromotionDTO> setOfExpiredPromotions = new HashSet<>(expiredPromotions);
+        List<Long> ids = new ArrayList<>();
+        setOfExpiredPromotions.forEach(expiredPromotion -> {
+            ids.add(expiredPromotion.getId());
+        });
+        return promotionConverter.toDtos(promotionRepository.findPromotionsByIdNotIn(ids));
     }
 }

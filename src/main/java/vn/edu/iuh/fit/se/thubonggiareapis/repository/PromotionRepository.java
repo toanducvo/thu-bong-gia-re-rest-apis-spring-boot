@@ -14,4 +14,6 @@ public interface PromotionRepository extends JpaRepository<Promotion, Long> {
     List<Promotion> findPromotionByExpiredDateIsLessThanEqual(LocalDateTime expireDate);
 
     List<Promotion> findPromotionByLimitEquals(int limit);
+
+    List<Promotion> findPromotionsByIdNotIn(List<Long> ids);
 }
