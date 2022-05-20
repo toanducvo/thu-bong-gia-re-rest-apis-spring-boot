@@ -15,8 +15,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     List<Order> findAllByOrderDate_YearAndOrderDate_MonthAndOrderDate_DayOfMonth(int year, int month, int dateOfMonth);
 
     @Query(value = "select sum(total) from orders where month(order_date) = ?1 and year(order_date) = ?2;",nativeQuery = true)
-    Optional<Double> totalRevenueInMonth(int month, int year) throws Exception;
+    Double totalRevenueInMonth(int month, int year) throws Exception;
 
     @Query(value = "select sum(total) from orders where day(order_date) = ?1 and month(order_date) = ?2 and year(order_date) = ?3;",nativeQuery = true)
-    Optional<Double> totalRevenueInDay(int day, int month, int year) throws Exception;
+    Double totalRevenueInDay(int day, int month, int year) throws Exception;
 }
