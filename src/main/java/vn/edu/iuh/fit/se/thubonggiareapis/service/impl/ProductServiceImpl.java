@@ -123,4 +123,14 @@ public class ProductServiceImpl implements IProductService {
         return productConverter.toDtos(productRepository.findAllByCategory(category));
     }
 
+    @Override
+    public Long getTotalProduct() {
+        return productRepository.count();
+    }
+
+    @Override
+    public Long getTotalCategory() {
+        return productRepository.countDistinctCategories();
+    }
+
 }
