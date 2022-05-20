@@ -24,4 +24,6 @@ public interface IPromotionService {
 
     List<PromotionDTO> getAllPromotionByExpiredDate(LocalDateTime expiredDate);
     List<PromotionDTO> getAllPromotionExpiredByLimit();
+
+    List<PromotionDTO> getAllPromotionInDueDate();
 }
