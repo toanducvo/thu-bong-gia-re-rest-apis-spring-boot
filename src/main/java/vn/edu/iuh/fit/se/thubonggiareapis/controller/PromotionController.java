@@ -7,10 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.iuh.fit.se.thubonggiareapis.dto.PromotionDTO;
 import vn.edu.iuh.fit.se.thubonggiareapis.service.IPromotionService;
+import vn.edu.iuh.fit.se.thubonggiareapis.util.HashMapConverter;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @RestController
 @RequestMapping(value = "/promotions")
@@ -65,5 +65,43 @@ public class PromotionController {
         catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping(value = {
+            "/expired", "/expired/"
+    })
+    public ResponseEntity<List<HashMap<String, Object>>> getExpiredPromotions(
+            @RequestParam(name = "by", required = false) Optional<String> by
+    ) {
+        try {
+            if (by.isPresent()) {
+                List<HashMap<String, Object>> listOfExpiredPromotions;
+                switch (by.get().toUpperCase()) {
+                    case "DATE" -> {
+                        listOfExpiredPromotions = HashMapConverter.toListOf(promotionService.getAllPromotionByExpiredDate(LocalDateTime.now()));
+                        return new ResponseEntity<>(listOfExpiredPromotions,HttpStatus.OK);
+                    }
+                    case "LIMIT" -> {
+                        listOfExpiredPromotions = HashMapConverter.toListOf(promotionService.getAllPromotionExpiredByLimit());
+                        return new ResponseEntity<>(listOfExpiredPromotions,HttpStatus.OK);
+                    }
+                }
+            }
+
+            List<PromotionDTO> promotionDTOS = promotionService.getAllPromotionByExpiredDate(LocalDateTime.now());
+            promotionDTOS.addAll(promotionService.getAllPromotionExpiredByLimit());
+            Set<PromotionDTO> setOfExpiredPromotions = new HashSet<>(promotionDTOS);
+            return new ResponseEntity<>(HashMapConverter.toListOf(new ArrayList<>(setOfExpiredPromotions)), HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping(value = {
+            "/in-due-date", "/in-due-date/"
+    })
+    public ResponseEntity<List<HashMap<String, Object>>> getInDueDatePromotions() {
+        return null;
     }
 }

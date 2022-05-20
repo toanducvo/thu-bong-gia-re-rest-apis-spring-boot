@@ -63,6 +63,21 @@ public class PromotionDTO extends AbstractDTO {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PromotionDTO)) return false;
+
+        PromotionDTO that = (PromotionDTO) o;
+
+        return getPromotionCode().equals(that.getPromotionCode());
+    }
+
+    @Override
+    public int hashCode() {
+        return getPromotionCode().hashCode();
+    }
+
+    @Override
     public String toString() {
         return "PromotionDTO [deducted=" + deducted + ", expiredDate=" + expiredDate + ", limit=" + limit
                 + ", promotionCode=" + promotionCode + ", createdBy=" + createdBy + "]";
