@@ -15,4 +15,10 @@ public interface IOrderService {
     OrderDTO addOrder(OrderDTO order);
 
     List<OrderDTO> getOrdersByOrderDate(int year, int month, int dayOfMonth);
+
+    Long getTotalOrder();
+
+    Double getTotalRevenueInADay(int dayOfMonth, Month month, int year);
+
+    Double getTotalRevenueInAMonth(Month month, int year);
 }
