@@ -1,7 +1,6 @@
 package vn.edu.iuh.fit.se.thubonggiareapis.util;
 
 import vn.edu.iuh.fit.se.thubonggiareapis.dto.AbstractDTO;
-import vn.edu.iuh.fit.se.thubonggiareapis.dto.OrderDTO;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

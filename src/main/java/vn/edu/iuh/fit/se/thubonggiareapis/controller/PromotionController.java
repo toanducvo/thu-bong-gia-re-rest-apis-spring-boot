@@ -61,8 +61,7 @@ public class PromotionController {
             response.put("totalPromotion", total);
             response.put("inDueDatePromotion", total - expired);
             return new ResponseEntity<>(response, HttpStatus.OK);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -79,11 +78,11 @@ public class PromotionController {
                 switch (by.get().toUpperCase()) {
                     case "DATE": {
                         listOfExpiredPromotions = HashMapConverter.toListOf(promotionService.getAllPromotionByExpiredDate(LocalDateTime.now()));
-                        return new ResponseEntity<>(listOfExpiredPromotions,HttpStatus.OK);
+                        return new ResponseEntity<>(listOfExpiredPromotions, HttpStatus.OK);
                     }
                     case "LIMIT": {
                         listOfExpiredPromotions = HashMapConverter.toListOf(promotionService.getAllPromotionExpiredByLimit());
-                        return new ResponseEntity<>(listOfExpiredPromotions,HttpStatus.OK);
+                        return new ResponseEntity<>(listOfExpiredPromotions, HttpStatus.OK);
                     }
                 }
             }
@@ -92,8 +91,7 @@ public class PromotionController {
             promotionDTOS.addAll(promotionService.getAllPromotionExpiredByLimit());
             Set<PromotionDTO> setOfExpiredPromotions = new HashSet<>(promotionDTOS);
             return new ResponseEntity<>(HashMapConverter.toListOf(new ArrayList<>(setOfExpiredPromotions)), HttpStatus.OK);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -105,8 +103,7 @@ public class PromotionController {
 
         try {
             return new ResponseEntity<>(HashMapConverter.toListOf(promotionService.getAllPromotionInDueDate()), HttpStatus.OK);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

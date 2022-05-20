@@ -1,6 +1,5 @@
 package vn.edu.iuh.fit.se.thubonggiareapis.service;
 
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import vn.edu.iuh.fit.se.thubonggiareapis.dto.OrderDetailDTO;
 import vn.edu.iuh.fit.se.thubonggiareapis.entity.Order;

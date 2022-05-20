@@ -58,8 +58,7 @@ public class OrderController {
             orderDTOList = orderService.getAllOrders();
             result = HashMapConverter.toListOf(orderDTOList);
             return new ResponseEntity<>(result, HttpStatus.OK);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -74,12 +73,11 @@ public class OrderController {
             LocalDateTime now = LocalDateTime.now();
             response.put("totalOrder", orderService.getTotalOrder());
             response.put("totalProductSoldInAMonth", orderDetailService.getTotalProductInMonth(LocalDate.now().getMonth()));
-            response.put("totalRevenueInADay", orderService.getTotalRevenueInADay(now.getDayOfMonth(),now.getMonth(), now.getYear()));
+            response.put("totalRevenueInADay", orderService.getTotalRevenueInADay(now.getDayOfMonth(), now.getMonth(), now.getYear()));
             response.put("totalRevenueInAMonth", orderService.getTotalRevenueInAMonth(now.getMonth(), now.getYear()));
 
             return new ResponseEntity<>(response, HttpStatus.OK);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
