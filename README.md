@@ -26,6 +26,10 @@ After successfully built, type this command to run app (replace ```path/to/jar/f
 java -jar target/path/to/jar/file.jar
 ```
 
+The app will be running on port `8080`.
+
+> If you receive an error like: `port 8080 is already in use`, let terminate the process which is running on port 8080 and run the app again.
+
 ## Import sample data
 
 As a schema is created persistently, you can import sample data to your database by copy and pasting the following SQL into your database.
