@@ -67,7 +67,7 @@ public class PromotionServiceImpl implements IPromotionService {
 
     @Override
     public long getExpiredPromotions() {
-        return promotionRepository.countPromotionsByExpiredDateIsBefore(LocalDateTime.now());
+        return promotionRepository.countPromotionsByExpiredDateIsLessThanEqual(LocalDateTime.now());
     }
 
     @Override

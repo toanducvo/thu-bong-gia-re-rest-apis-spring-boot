@@ -9,7 +9,7 @@ import java.util.List;
 public interface PromotionRepository extends JpaRepository<Promotion, Long> {
     Promotion findByPromotionCode(String promotionCode);
 
-    Long countPromotionsByExpiredDateIsBefore(LocalDateTime expiredDate);
+    Long countPromotionsByExpiredDateIsLessThanEqual(LocalDateTime expiredDate);
 
     List<Promotion> findPromotionByExpiredDateIsLessThanEqual(LocalDateTime expireDate);
 
